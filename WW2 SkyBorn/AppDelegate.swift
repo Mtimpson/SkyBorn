@@ -1,8 +1,9 @@
 //
 //  AppDelegate.swift
 //  WW2 SkyBorn
+//  Version  0.1
 //
-//  Created by Michael Timpson on 5/5/16.
+//  Created by Michael Timpson & Matthew Creel on 5/5/16.
 //  Copyright © 2016 newBorn Software Development Company. All rights reserved.
 //
 
@@ -16,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        
         return true
     }
 
