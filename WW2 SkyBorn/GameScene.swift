@@ -9,6 +9,13 @@
 
 import SpriteKit
 
+//Phsics structure catagory.. EP1 Flappy
+struct PhysicsCatagory {
+    static let f_40 : UInt32 = 0x1 << 1
+    static let enemyMig : UInt32 = 0x1 << 2
+    
+}
+
 class GameScene: SKScene {
     
     var f_40 = SKSpriteNode()
@@ -24,6 +31,13 @@ class GameScene: SKScene {
         f_40 = SKSpriteNode(imageNamed: "F-40-Clean")
         f_40.size = CGSize(width: 60, height: 70)
         f_40.position = CGPoint(x: self.frame.width / 2 - f_40.frame.width, y: self.frame.height / 2)
+        f_40.physicsBody = SKPhysicsBody(circleOfRadius: f_40.frame.width / 2)
+        f_40.physicsBody?.categoryBitMask = PhysicsCatagory.f_40
+        f_40.physicsBody?.collisionBitMask = PhysicsCatagory.enemyMig
+        f_40.physicsBody?.contactTestBitMask = PhysicsCatagory.enemyMig
+        f_40.physicsBody?.affectedByGravity = true
+        f_40.physicsBody?.dynamic = true
+        
         self.addChild(f_40)
         
         // Every call to the mig fuction will spawn a new Mig!
@@ -89,8 +103,9 @@ class GameScene: SKScene {
     }
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
        /* Called when a touch begins */
-        
-        
+        // The higher the "60" the higher the plane will 'jump'!
+        f_40.physicsBody?.velocity = CGVectorMake(0, 0)
+        f_40.physicsBody?.applyImpulse(CGVectorMake(0, 60))
     }
    
    // override func update(currentTime: CFTimeInterval) {
