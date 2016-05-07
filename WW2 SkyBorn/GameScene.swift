@@ -9,7 +9,8 @@
 
 import SpriteKit
 
-//Phsics structure catagory.. EP1 Flappy
+// Added the physics structure Catagory..
+// Phsics structure catagory.. EP1 Flappy
 struct PhysicsCatagory {
     static let f_40 : UInt32 = 0x1 << 1
     static let enemyMig : UInt32 = 0x1 << 2
@@ -27,7 +28,7 @@ class GameScene: SKScene {
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         
-        //Spawn in your f_40 plane at the left middle of the screen!
+        // Spawn in your f_40 plane at the left middle of the screen!
         f_40 = SKSpriteNode(imageNamed: "F-40-Clean")
         f_40.size = CGSize(width: 60, height: 70)
         f_40.position = CGPoint(x: self.frame.width / 2 - f_40.frame.width, y: self.frame.height / 2)
