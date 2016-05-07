@@ -24,6 +24,8 @@ class GameScene: SKScene {
     var bground2 = SKSpriteNode()
     var text1 = SKTexture()
     var text2 = SKTexture()
+    var enemyMig = SKSpriteNode()
+    
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
@@ -45,25 +47,35 @@ class GameScene: SKScene {
         createEnemyMig()
         createEnemyMig()
         createEnemyMig()
+        createEnemyMig()
         
+        //makes 2 backgrounds for the illusion of movement
         text1 = SKTexture(imageNamed: "Bground")
         text2 = SKTexture(imageNamed: "Bground")
         
         bground = SKSpriteNode(texture: text1)
         bground.anchorPoint = CGPointZero
         bground.position = CGPointZero
-        bground.zPosition = -1
+        bground.zPosition = -5
         self.addChild(bground)
         
         bground2 = SKSpriteNode(texture: text2)
         bground2.anchorPoint = CGPointZero
         bground2.position = CGPointMake(bground2.size.width-1 , 0)
-        bground2.zPosition = -1
+        bground2.zPosition = -5
         self.addChild(bground2)
+        
+   
+        //calls the createEnemyMig function every 1 second. 1st arg is time interval
+        _ = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(GameScene.createEnemyMig), userInfo: nil, repeats: true)
+        
+        //spwans a missile from the f-40. time interval is the 1st arg. will need to change to touch activation later
+        _ = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(GameScene.spawnUserMissile), userInfo: nil, repeats: true)
     
         
     }
     
+    //infinitely scrolls the background to the left
     override func update(currentTime: NSTimeInterval){
         // 4 controls the speed below
         bground.position = CGPoint(x: bground.position.x-6 , y: bground.position.y)
@@ -79,6 +91,23 @@ class GameScene: SKScene {
 
     }
     
+    //spawns a blue missle on the f-40 moving right
+    func spawnUserMissile(){
+        let missile = SKSpriteNode(imageNamed: "missile")
+        missile.zPosition = 1
+        missile.position = CGPointMake(f_40.position.x, f_40.position.y)
+        missile.size.height = 150
+        missile.size.width = 80
+        //moves the missile. last arg controls the speed (lower = faster) will replace this later
+        let horizontalMove = SKAction.moveByX(self.size.width, y: 0, duration: 3.5)
+        missile.runAction(horizontalMove)
+        self.addChild(missile)
+        
+        //use line below to move missle non-horizontially. work out later
+        //let missleMovement = SKAction.moveBy(<#T##delta: CGVector##CGVector#>, duration: <#T##NSTimeInterval#>)
+        
+    }
+    
     //Function creates an enemyMig
     func createEnemyMig() {
         
@@ -88,20 +117,44 @@ class GameScene: SKScene {
         let height = self.view!.frame.height
         
         //Load the enemy Mig 21
-        let enemyMig = SKSpriteNode(imageNamed: "MiG-21-Clean")
+        enemyMig = SKSpriteNode(imageNamed: "MiG-21-Clean")
         //Set size of the Mig
         enemyMig.size = CGSize(width: 60, height: 70)
         //1.5 = 3/4 of Screen, 1.75 = Barley on Screen, 2.0 = Off the screen
-        enemyMig.position = CGPoint(x: screenSize.width * 1.5 , y: CGFloat(arc4random()) % height)
+        enemyMig.position = CGPoint(x: screenSize.width * 2.0 , y: CGFloat(arc4random()) % height)
         
         //Add the enemy mig to the screen.
         enemyMigs.addChild(enemyMig)
         
         
         self.addChild(enemyMigs)
+        
+        
+        //moves migs accross the screen to the left
+        let moveMig = SKAction.moveByX(-self.size.width, y: 0, duration: 7)
+        enemyMig.runAction(moveMig)
+        
+        
+        //makes the enemy migs fire. 1st arg in the time interval
+        _ = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: #selector(GameScene.enemyMissiles), userInfo: nil, repeats: true)
 
-    
     }
+    
+    //creates a red missile from the migs that moves left
+    func enemyMissiles(){
+        let enemyMissile = SKSpriteNode(imageNamed: "enemyMissile")
+        enemyMissile.zPosition = 1
+        enemyMissile.position = CGPointMake(enemyMig.position.x, enemyMig.position.y)
+        enemyMissile.size.height = 150
+        enemyMissile.size.width = 80
+        //moves the missile. last arg controls the speed (lower = faster)
+        let enemyFire = SKAction.moveByX(-self.size.width, y: 0, duration: 3.5)
+        enemyMissile.runAction(enemyFire)
+        self.addChild(enemyMissile)
+        
+    }
+    
+
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
        /* Called when a touch begins */
         // The higher the "60" the higher the plane will 'jump'!
