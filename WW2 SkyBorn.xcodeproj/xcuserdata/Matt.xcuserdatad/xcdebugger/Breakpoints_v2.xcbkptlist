@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WW2 SkyBorn/GameScene.swift"
-            timestampString = "484339816.159609"
+            timestampString = "484379085.461176"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "didMoveToView(_:)"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
+            landmarkName = "spawnUserMissile()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,13 +26,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WW2 SkyBorn/GameScene.swift"
-            timestampString = "484340253.659312"
+            timestampString = "484376719.491958"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
-            landmarkName = "spawnUserMissile()"
-            landmarkType = "5">
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "GameScene"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
