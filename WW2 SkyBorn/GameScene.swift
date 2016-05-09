@@ -36,8 +36,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         
         // Spawn in your f_40 plane at the left middle of the screen!
-        f_40 = SKSpriteNode(imageNamed: "F-40-Clean")
-        f_40.size = CGSize(width: 60, height: 70)
+        f_40 = SKSpriteNode(imageNamed: "heli")
+        f_40.size = CGSize(width: 90, height: 20)
         f_40.position = CGPoint(x: self.frame.width / 2 - f_40.frame.width, y: self.frame.height / 2)
         f_40.physicsBody = SKPhysicsBody(rectangleOfSize: f_40.size)
         f_40.physicsBody?.categoryBitMask = PhysicsCatagory.f_40
@@ -50,6 +50,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         f_40.physicsBody?.usesPreciseCollisionDetection = true
         
         self.addChild(f_40)
+        
+        if(f_40.position.y <= 0){
+            NSLog("fallen")
+            f_40.removeFromParent()
+        }
         
                 
         //makes 2 backgrounds for the illusion of movement
@@ -73,7 +78,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         _ = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(GameScene.createEnemyMig), userInfo: nil, repeats: true)
         
         //spwans a missile from the f-40. time interval is the 1st arg. will need to change to touch activation later
-        _ = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(GameScene.spawnUserMissile), userInfo: nil, repeats: true)
+       // _ = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(GameScene.spawnUserMissile), userInfo: nil, repeats: true)
     
         
     }
@@ -174,7 +179,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //Function creates an enemyMig
     func createEnemyMig() {
         
-        let screenSize : CGRect = UIScreen.mainScreen().bounds
+       
         
         let enemyMigs = SKNode()
         let height = self.view!.frame.height
@@ -246,7 +251,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
        /* Called when a touch begins */
         super.touchesBegan(touches, withEvent: event)
         touchingScreen = true
-        f_40.physicsBody?.applyImpulse(CGVectorMake(0, 50))
+        f_40.physicsBody?.velocity = CGVector(dx: 0, dy: 150)
     }
     
     override func touchesCancelled(touches: Set<UITouch>!, withEvent event: UIEvent!) {
@@ -262,7 +267,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //infinitely scrolls the background to the left.. Also fuctions the touch mechanic.
     override func update(currentTime: NSTimeInterval){
         if touchingScreen {
-            f_40.physicsBody?.applyImpulse(CGVectorMake(0, 25))
+            f_40.physicsBody?.velocity = CGVector(dx: 0, dy: 140)
         }
         
         // 4 controls the speed below
