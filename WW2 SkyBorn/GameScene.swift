@@ -16,9 +16,6 @@ struct PhysicsCatagory {
     static let enemyMig : UInt32 = 4
     static let missile : UInt32 = 2
     static let enemyMissile : UInt32 = 3
-    
-
-    
 }
 
 
