@@ -76,7 +76,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         _ = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(GameScene.createEnemyMig), userInfo: nil, repeats: true)
         
         //spwans a missile from the f-40. time interval is the 1st arg. will need to change to touch activation later
-        _ = NSTimer.scheduledTimerWithTimeInterval(0.6, target: self, selector: #selector(GameScene.spawnUserMissile), userInfo: nil, repeats: true)
+        _ = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(GameScene.spawnUserMissile), userInfo: nil, repeats: true)
     
         
     }
@@ -142,24 +142,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         f_40.removeFromParent()
         enemyMig.removeFromParent()
         NSLog("hit by mig")
-    }
-
-
-    
-    //infinitely scrolls the background to the left
-    override func update(currentTime: NSTimeInterval){
-        // 4 controls the speed below
-        bground.position = CGPoint(x: bground.position.x-6 , y: bground.position.y)
-        bground2.position = CGPoint(x: bground2.position.x-6, y: bground2.position.y)
-        
-        if(bground.position.x < -bground.size.width+200){
-            bground.position = CGPointMake(bground2.position.x + bground2.size.width, bground.position.y)
-        }
-        
-        if(bground2.position.x < -bground2.size.width+200){
-            bground2.position = CGPointMake(bground.position.x + bground.size.width, bground2.position.y)
-        }
-
     }
     
     //spawns a blue missle on the f-40 moving right
@@ -261,14 +243,42 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
 
+    var touchingScreen = false
+    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
        /* Called when a touch begins */
-        // The higher the "60" the higher the plane will 'jump'!
-        f_40.physicsBody?.velocity = CGVectorMake(0, 0)
-        f_40.physicsBody?.applyImpulse(CGVectorMake(0, 60))
+        super.touchesBegan(touches, withEvent: event)
+        touchingScreen = true
+        f_40.physicsBody?.applyImpulse(CGVectorMake(0, 50))
     }
-   
-   // override func update(currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
-    //}
+    
+    override func touchesCancelled(touches: Set<UITouch>!, withEvent event: UIEvent!) {
+        super.touchesCancelled(touches, withEvent: event)
+        touchingScreen = false
+    }
+    
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        super.touchesEnded(touches, withEvent: event)
+        touchingScreen = false
+    }
+    
+    //infinitely scrolls the background to the left.. Also fuctions the touch mechanic.
+    override func update(currentTime: NSTimeInterval){
+        if touchingScreen {
+            f_40.physicsBody?.applyImpulse(CGVectorMake(0, 25))
+        }
+        
+        // 4 controls the speed below
+        bground.position = CGPoint(x: bground.position.x-6 , y: bground.position.y)
+        bground2.position = CGPoint(x: bground2.position.x-6, y: bground2.position.y)
+        
+        if(bground.position.x < -bground.size.width+200){
+            bground.position = CGPointMake(bground2.position.x + bground2.size.width, bground.position.y)
+        }
+        
+        if(bground2.position.x < -bground2.size.width+200){
+            bground2.position = CGPointMake(bground.position.x + bground.size.width, bground2.position.y)
+        }
+        
+    }
 }
