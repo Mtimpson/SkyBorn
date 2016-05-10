@@ -51,31 +51,43 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.addChild(f_40)
         
-        if(f_40.position.y <= 0){
-            NSLog("fallen")
-            f_40.removeFromParent()
-        }
         
                 
         //makes 2 backgrounds for the illusion of movement
-        text1 = SKTexture(imageNamed: "Bground")
-        text2 = SKTexture(imageNamed: "Bground")
+        text1 = SKTexture(imageNamed: "desert")
+        text2 = SKTexture(imageNamed: "desert")
+        
+        
+        let width = self.size.width
+        let height = self.size.height
+        
+        let text3 = SKTexture(imageNamed: "desertSky")
+        let sky = SKSpriteNode(texture: text3, size: CGSize(width: width, height: height))
+        sky.anchorPoint = CGPoint(x: 0, y: -0.07)
+        sky.zPosition = -10
+        self.addChild(sky)
+       
+
         
         bground = SKSpriteNode(texture: text1)
         bground.anchorPoint = CGPointZero
+       
+        bground.size.width = width
         bground.position = CGPointZero
         bground.zPosition = -5
         self.addChild(bground)
         
         bground2 = SKSpriteNode(texture: text2)
         bground2.anchorPoint = CGPointZero
+
+        bground2.size.width = width
         bground2.position = CGPointMake(bground2.size.width-1 , 0)
         bground2.zPosition = -5
         self.addChild(bground2)
         
    
         //calls the createEnemyMig function every 1 second. 1st arg is time interval
-        _ = NSTimer.scheduledTimerWithTimeInterval(0.6, target: self, selector: #selector(GameScene.createEnemyMig), userInfo: nil, repeats: true)
+        _ = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(GameScene.createEnemyMig), userInfo: nil, repeats: true)
         
         //spwans a missile from the f-40. time interval is the 1st arg. will need to change to touch activation later
        // _ = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(GameScene.spawnUserMissile), userInfo: nil, repeats: true)
@@ -139,12 +151,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         f_40.removeFromParent()
         enemyMissile.removeFromParent()
         NSLog("hit by missile")
+        self.view?.presentScene(EndScene(), transition: SKTransition.crossFadeWithDuration(0.3))
     }
     //call when mig collides with f-40 fire
     func f40AndMig(f_40: SKSpriteNode, enemyMig: SKSpriteNode){
         f_40.removeFromParent()
         enemyMig.removeFromParent()
         NSLog("hit by mig")
+        self.view?.presentScene(EndScene(), transition: SKTransition.crossFadeWithDuration(0.3))
+
     }
     
     //spawns a blue missle on the f-40 moving right
@@ -183,12 +198,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
        
         
         let enemyMigs = SKNode()
-        let height = self.view!.frame.height
+        let height = self.size.height
         
         //Load the enemy Mig 21
         enemyMig = SKSpriteNode(imageNamed: "MiG-21-Clean")
         //Set size of the Mig
-        enemyMig.size = CGSize(width: 60, height: 70)
+        enemyMig.size = CGSize(width: 72, height: 85)
         //1.5 = 3/4 of Screen, 1.75 = Barley on Screen, 2.0 = Off the screen
         enemyMig.position = CGPoint(x: self.frame.width-200, y: CGFloat(arc4random()) % height)
         enemyMig.zPosition = 1
@@ -275,11 +290,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bground.position = CGPoint(x: bground.position.x-6 , y: bground.position.y)
         bground2.position = CGPoint(x: bground2.position.x-6, y: bground2.position.y)
         
-        if(bground.position.x < -bground.size.width+200){
+        if(bground.position.x < -bground.size.width + self.size.width * 0.3){
             bground.position = CGPointMake(bground2.position.x + bground2.size.width, bground.position.y)
         }
         
-        if(bground2.position.x < -bground2.size.width+200){
+        if(bground2.position.x < -bground2.size.width + self.size.width * 0.3){
             bground2.position = CGPointMake(bground.position.x + bground.size.width, bground2.position.y)
         }
         
