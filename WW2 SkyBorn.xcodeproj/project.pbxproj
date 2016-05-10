@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C8FA8C71CE16D0600C9D08D /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8FA8C61CE16D0600C9D08D /* StartScene.swift */; };
 		4C9B57A01CDBEF0400D3EF28 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9B579F1CDBEF0400D3EF28 /* AppDelegate.swift */; };
 		4C9B57A21CDBEF0400D3EF28 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4C9B57A11CDBEF0400D3EF28 /* GameScene.sks */; };
 		4C9B57A41CDBEF0400D3EF28 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9B57A31CDBEF0400D3EF28 /* GameScene.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C8FA8C61CE16D0600C9D08D /* StartScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScene.swift; sourceTree = "<group>"; };
 		4C9B579C1CDBEF0400D3EF28 /* WW2 SkyBorn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WW2 SkyBorn.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C9B579F1CDBEF0400D3EF28 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C9B57A11CDBEF0400D3EF28 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 			children = (
 				4C9B579F1CDBEF0400D3EF28 /* AppDelegate.swift */,
 				4C9B57A11CDBEF0400D3EF28 /* GameScene.sks */,
+				4C8FA8C61CE16D0600C9D08D /* StartScene.swift */,
 				4C9B57A31CDBEF0400D3EF28 /* GameScene.swift */,
 				4C9B57A51CDBEF0400D3EF28 /* GameViewController.swift */,
 				4C9B57A71CDBEF0400D3EF28 /* Main.storyboard */,
@@ -266,6 +269,7 @@
 				4C9B57A41CDBEF0400D3EF28 /* GameScene.swift in Sources */,
 				4C9B57A61CDBEF0400D3EF28 /* GameViewController.swift in Sources */,
 				4C9B57A01CDBEF0400D3EF28 /* AppDelegate.swift in Sources */,
+				4C8FA8C71CE16D0600C9D08D /* StartScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,6 +498,7 @@
 				4C9B57CA1CDBEF0400D3EF28 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4C9B57CB1CDBEF0400D3EF28 /* Build configuration list for PBXNativeTarget "WW2 SkyBornTests" */ = {
 			isa = XCConfigurationList;
@@ -502,6 +507,7 @@
 				4C9B57CD1CDBEF0400D3EF28 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4C9B57CE1CDBEF0400D3EF28 /* Build configuration list for PBXNativeTarget "WW2 SkyBornUITests" */ = {
 			isa = XCConfigurationList;
@@ -510,6 +516,7 @@
 				4C9B57D01CDBEF0400D3EF28 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
