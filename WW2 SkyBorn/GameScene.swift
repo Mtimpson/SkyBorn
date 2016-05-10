@@ -38,7 +38,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Spawn in your f_40 plane at the left middle of the screen!
         f_40 = SKSpriteNode(imageNamed: "heli")
         f_40.size = CGSize(width: 90, height: 20)
-        f_40.position = CGPoint(x: self.frame.width / 2 - f_40.frame.width, y: self.frame.height / 2)
+        f_40.position = CGPoint(x: self.frame.width / 2.5, y: self.frame.height / 2)
         f_40.physicsBody = SKPhysicsBody(rectangleOfSize: f_40.size)
         f_40.physicsBody?.categoryBitMask = PhysicsCatagory.f_40
         //0 means it will not bounce around when it collides with comething
@@ -75,10 +75,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
    
         //calls the createEnemyMig function every 1 second. 1st arg is time interval
-        _ = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(GameScene.createEnemyMig), userInfo: nil, repeats: true)
+        _ = NSTimer.scheduledTimerWithTimeInterval(0.6, target: self, selector: #selector(GameScene.createEnemyMig), userInfo: nil, repeats: true)
         
         //spwans a missile from the f-40. time interval is the 1st arg. will need to change to touch activation later
        // _ = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(GameScene.spawnUserMissile), userInfo: nil, repeats: true)
+        
     
         
     }
@@ -189,7 +190,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Set size of the Mig
         enemyMig.size = CGSize(width: 60, height: 70)
         //1.5 = 3/4 of Screen, 1.75 = Barley on Screen, 2.0 = Off the screen
-        enemyMig.position = CGPoint(x: self.frame.width + 10 , y: CGFloat(arc4random()) % height)
+        enemyMig.position = CGPoint(x: self.frame.width-200, y: CGFloat(arc4random()) % height)
         enemyMig.zPosition = 1
         //Add the enemy mig to the screen.
         enemyMigs.addChild(enemyMig)
@@ -207,14 +208,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         //moves migs accross the screen to the left
-        let moveMig = SKAction.moveByX(-self.size.width, y: 0, duration: 7)
+        let moveMig = SKAction.moveByX(-self.size.width, y: 0, duration: 4)
         //deletes mig once off screen
         let doneMoving = SKAction.removeFromParent()
         enemyMig.runAction(SKAction.sequence([moveMig, doneMoving]))
         
         
         
-        _ = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: #selector(GameScene.enemyMissiles), userInfo: nil, repeats: true)
+       _ = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: #selector(GameScene.enemyMissiles), userInfo: nil, repeats: false)
 
     }
     
@@ -226,7 +227,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         enemyMissile.size.height = 150
         enemyMissile.size.width = 80
         //moves the missile. last arg controls the speed (lower = faster)
-        let enemyFire = SKAction.moveByX(-self.size.width, y: 0, duration: 3.5)
+        let enemyFire = SKAction.moveByX(-self.size.width, y: 0, duration: 2)
         //deletes red missile once off screen
         let doneMoving = SKAction.removeFromParent()
         enemyMissile.runAction(SKAction.sequence([enemyFire, doneMoving]))
