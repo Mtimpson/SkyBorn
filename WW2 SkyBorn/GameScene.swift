@@ -29,6 +29,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var enemyMig = SKSpriteNode()
     
     
+    
+    
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         
@@ -290,11 +292,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bground.position = CGPoint(x: bground.position.x-6 , y: bground.position.y)
         bground2.position = CGPoint(x: bground2.position.x-6, y: bground2.position.y)
         
-        if(bground.position.x < -bground.size.width + self.size.width * 0.3){
+        if(bground.position.x < -bground.size.width + self.size.width * 0.2){
             bground.position = CGPointMake(bground2.position.x + bground2.size.width, bground.position.y)
         }
         
-        if(bground2.position.x < -bground2.size.width + self.size.width * 0.3){
+        if(bground2.position.x < -bground2.size.width + self.size.width * 0.2){
             bground2.position = CGPointMake(bground.position.x + bground.size.width, bground2.position.y)
         }
         
