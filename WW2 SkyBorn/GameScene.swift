@@ -30,12 +30,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var text1 = SKTexture()
     var text2 = SKTexture()
     var enemyMig = SKSpriteNode()
+    var start : UIButton!
     
-    let textureAtlas = SKTextureAtlas(named:"chopper.atlas")
-    var currentTexture:Int = 1;
-    var spriteArray = Array<SKTexture>();
-    
-    var monsterSprite = SKSpriteNode();
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
@@ -53,7 +49,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         f_40.physicsBody?.collisionBitMask = 0
         f_40.physicsBody?.contactTestBitMask = PhysicsCatagory.enemyMig
         f_40.physicsBody?.contactTestBitMask = PhysicsCatagory.enemyMissile
-        f_40.physicsBody?.affectedByGravity = true
+        f_40.physicsBody?.affectedByGravity = false
         f_40.physicsBody?.dynamic = true
         f_40.physicsBody?.usesPreciseCollisionDetection = true
         
@@ -97,7 +93,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         sky.zPosition = -10
         self.addChild(sky)
        
-
         
         bground = SKSpriteNode(texture: text1)
         bground.anchorPoint = CGPointZero
@@ -115,14 +110,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bground2.zPosition = -5
         self.addChild(bground2)
         
-   
-        //calls the createEnemyMig function every 1 second. 1st arg is time interval
-        _ = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(GameScene.createEnemyMig), userInfo: nil, repeats: true)
+        //adds start button
+        start = UIButton((frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 10)))
+        start.center = view.center
+        start.setTitle("Press to Start!", forState: UIControlState.Normal)
+        start.titleLabel!.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        start.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        start.addTarget(self, action: #selector(GameScene.startPressed), forControlEvents: UIControlEvents.TouchUpInside)
+        self.view?.addSubview(start)
         
-        //spwans a missile from the f-40. time interval is the 1st arg. will need to change to touch activation later
-       // _ = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(GameScene.spawnUserMissile), userInfo: nil, repeats: true)
-        
-    
         
     }
     
@@ -231,7 +227,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func createEnemyMig() {
         
        
-        
         let enemyMigs = SKNode()
         let height = self.size.height
         
@@ -300,10 +295,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
        /* Called when a touch begins */
+        
         super.touchesBegan(touches, withEvent: event)
         touchingScreen = true
         f_40.physicsBody?.velocity = CGVector(dx: 0, dy: 150)
+        start.removeFromSuperview()
+        f_40.physicsBody?.affectedByGravity = true
         
+        
+        //calls the createEnemyMig function every 1 second. 1st arg is time interval
+        _ = NSTimer.scheduledTimerWithTimeInterval(0.87, target: self, selector: #selector(GameScene.createEnemyMig), userInfo: nil, repeats: true)
+        
+        //spwans a missile from the f-40. time interval is the 1st arg. will need to change to touch activation later
+        // _ = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(GameScene.spawnUserMissile), userInfo: nil, repeats: true)
     }
     
     override func touchesCancelled(touches: Set<UITouch>!, withEvent event: UIEvent!) {
