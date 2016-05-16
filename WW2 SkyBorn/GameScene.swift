@@ -289,6 +289,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    
+    
 
     var touchingScreen = false
     
@@ -299,14 +301,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         touchingScreen = true
         f_40.physicsBody?.velocity = CGVector(dx: 0, dy: 150)
         start.removeFromSuperview()
+        
+        if (!(f_40.physicsBody?.affectedByGravity)!) {
+            //calls the createEnemyMig function every 1 second. 1st arg is time interval
+            _ = NSTimer.scheduledTimerWithTimeInterval(0.87, target: self, selector: #selector(GameScene.createEnemyMig), userInfo: nil, repeats: true)
+            
+            //spwans a missile from the f-40. time interval is the 1st arg. will need to change to touch activation later
+            // _ = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(GameScene.spawnUserMissile), userInfo: nil, repeats: true)
+        }
+        
         f_40.physicsBody?.affectedByGravity = true
         
         
-        //calls the createEnemyMig function every 1 second. 1st arg is time interval
-        _ = NSTimer.scheduledTimerWithTimeInterval(0.87, target: self, selector: #selector(GameScene.createEnemyMig), userInfo: nil, repeats: true)
         
-        //spwans a missile from the f-40. time interval is the 1st arg. will need to change to touch activation later
-        // _ = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(GameScene.spawnUserMissile), userInfo: nil, repeats: true)
     }
     
     override func touchesCancelled(touches: Set<UITouch>!, withEvent event: UIEvent!) {
