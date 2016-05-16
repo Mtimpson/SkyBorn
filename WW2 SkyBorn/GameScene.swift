@@ -118,8 +118,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         start.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         start.addTarget(self, action: #selector(GameScene.startPressed), forControlEvents: UIControlEvents.TouchUpInside)
         self.view?.addSubview(start)
-        
-        
+    }
+    
+    func startPressed() {
+        // DO NOTHING
     }
     
     func spinChopper() {
