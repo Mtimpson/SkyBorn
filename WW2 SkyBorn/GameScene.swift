@@ -37,7 +37,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         
         // Spawn in your f_40 plane at the left middle of the screen!
-        f_40 = SKSpriteNode(imageNamed: "heli")
+        f_40 = SKSpriteNode(imageNamed: "chopper1")
         f_40.size = CGSize(width: 90, height: 20)
         f_40.position = CGPoint(x: self.frame.width / 2.5, y: self.frame.height / 2)
         f_40.physicsBody = SKPhysicsBody(rectangleOfSize: f_40.size)
@@ -49,6 +49,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         f_40.physicsBody?.affectedByGravity = false
         f_40.physicsBody?.dynamic = true
         f_40.physicsBody?.usesPreciseCollisionDetection = true
+        
+        // Make the chopper rotate
+        spriteArray.append(textureAtlas.textureNamed("chopper1"));
+        spriteArray.append(textureAtlas.textureNamed("chopper2"));
+        spriteArray.append(textureAtlas.textureNamed("chopper3"));
+        spriteArray.append(textureAtlas.textureNamed("chopper4"));
+        
+        monsterSprite = SKSpriteNode(texture:spriteArray[0]);
+        monsterSprite.position = CGPoint(x: self.frame.width / 2.5, y: self.frame.height / 2);
+        addChild(self.monsterSprite);
+        
+        let animateAction = SKAction.animateWithTextures(self.spriteArray, timePerFrame: 0.10);
+        let moveAction = SKAction.moveBy(CGVector(dx: view.bounds.width,dy: 0), duration: 1.4);
+        let group = SKAction.group([ animateAction,moveAction]);
+        let repeatAction = SKAction.repeatActionForever(group);
+        self.monsterSprite.runAction(repeatAction);
         
         self.addChild(f_40)
         
@@ -297,6 +313,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //infinitely scrolls the background to the left.. Also fuctions the touch mechanic.
     override func update(currentTime: NSTimeInterval){
+        
+        
         if touchingScreen {
             f_40.physicsBody?.velocity = CGVector(dx: 0, dy: 140)
         }
