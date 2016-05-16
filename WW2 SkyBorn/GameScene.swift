@@ -161,9 +161,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             f40AndMig(body1.node as! SKSpriteNode, enemyMig: body2.node as! SKSpriteNode)
         }
-
-
-
         
     }
     
