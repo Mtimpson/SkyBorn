@@ -9,6 +9,9 @@
 
 import SpriteKit
 
+var chopper : SKSpriteNode!
+var chopperWalkingFrames: [SKTexture]!
+
 // Added the physics structure Catagory..
 // Phsics structure catagory.. EP1 Flappy
 struct PhysicsCatagory {
@@ -46,7 +49,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         f_40.position = CGPoint(x: self.frame.width / 2.5, y: self.frame.height / 2)
         f_40.physicsBody = SKPhysicsBody(rectangleOfSize: f_40.size)
         f_40.physicsBody?.categoryBitMask = PhysicsCatagory.f_40
-        //0 means it will not bounce around when it collides with comething
+        // 0 means it will not bounce around when it collides with comething
         f_40.physicsBody?.collisionBitMask = 0
         f_40.physicsBody?.contactTestBitMask = PhysicsCatagory.enemyMig
         f_40.physicsBody?.contactTestBitMask = PhysicsCatagory.enemyMissile
@@ -54,22 +57,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         f_40.physicsBody?.dynamic = true
         f_40.physicsBody?.usesPreciseCollisionDetection = true
         
-        // Make the chopper rotate
-        spriteArray.append(textureAtlas.textureNamed("chopper1"));
-        spriteArray.append(textureAtlas.textureNamed("chopper2"));
-        spriteArray.append(textureAtlas.textureNamed("chopper3"));
-        spriteArray.append(textureAtlas.textureNamed("chopper4"));
         
-        monsterSprite = SKSpriteNode(texture:spriteArray[0]);
-        monsterSprite.position = CGPoint(x: self.frame.width / 2.5, y: self.frame.height / 2);
-        addChild(self.monsterSprite);
+        // Load the TextureAtlas for the chopper blades
+        let chopperAnimateedAtlas : SKTextureAtlas = SKTextureAtlas(named: "Chopper")
         
-        let animateAction = SKAction.animateWithTextures(self.spriteArray, timePerFrame: 0.10);
-        let moveAction = SKAction.moveBy(CGVector(dx: view.bounds.width,dy: 0), duration: 1.4);
-        let group = SKAction.group([ animateAction,moveAction]);
-        let repeatAction = SKAction.repeatActionForever(group);
-        self.monsterSprite.runAction(repeatAction);
+        // Load the animation frames from the TextureAtlas
+        var bladeFrames = [SKTexture]();
+        let numImages : Int = chopperAnimateedAtlas.textureNames.count
+        for var i = 1; i <= numImages/2; i += 1 {
+            let chopperTextureName = "chopper/(i)"
+            bladeFrames.append(chopperAnimateedAtlas.textureNamed(chopperTextureName))
+        }
         
+        chopperWalkingFrames = bladeFrames
+        
+        // Create Chopper Sprite, Setup Position in middle of the screen, add to Scene
+        let temp : SKTexture = chopperWalkingFrames[0]
+        chopper = SKSpriteNode(texture: temp)
+        chopper.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidX(self.frame))
+        addChild(chopper)
+        
+        spinChopper()
+    
         self.addChild(f_40)
         
         
@@ -115,6 +124,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     
         
+    }
+    
+    func spinChopper() {
+        // General runAction method to make the chopper blades spin.
+        chopper.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(chopperWalkingFrames, timePerFrame: 0.1, resize: false, restore: true)))
     }
     
     //used to determine when collisions happen
