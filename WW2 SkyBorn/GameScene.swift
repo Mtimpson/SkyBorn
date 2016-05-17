@@ -23,6 +23,7 @@ struct PhysicsCatagory {
 
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    var started = false
     
     var f_40 = SKSpriteNode()
     var bground = SKSpriteNode()
@@ -31,11 +32,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var text2 = SKTexture()
     var enemyMig = SKSpriteNode()
     var start : UIButton!
+    var moveBackground = false
     
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
-        
+                
         //needed for contact to register
         physicsWorld.contactDelegate = self
         
@@ -252,7 +254,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         //moves migs accross the screen to the left
-        let moveMig = SKAction.moveByX(-self.size.width, y: 0, duration: 4)
+        let moveMig = SKAction.moveByX(-self.size.width, y: 0, duration: 3)
         //deletes mig once off screen
         let doneMoving = SKAction.removeFromParent()
         enemyMig.runAction(SKAction.sequence([moveMig, doneMoving]))
@@ -271,7 +273,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         enemyMissile.size.height = 150
         enemyMissile.size.width = 80
         //moves the missile. last arg controls the speed (lower = faster)
-        let enemyFire = SKAction.moveByX(-self.size.width, y: 0, duration: 2)
+        let enemyFire = SKAction.moveByX(-self.size.width, y: 0, duration: 1.5)
         //deletes red missile once off screen
         let doneMoving = SKAction.removeFromParent()
         enemyMissile.runAction(SKAction.sequence([enemyFire, doneMoving]))
@@ -304,13 +306,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if (!(f_40.physicsBody?.affectedByGravity)!) {
             //calls the createEnemyMig function every 1 second. 1st arg is time interval
-            _ = NSTimer.scheduledTimerWithTimeInterval(0.87, target: self, selector: #selector(GameScene.createEnemyMig), userInfo: nil, repeats: true)
+            _ = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(GameScene.createEnemyMig), userInfo: nil, repeats: true)
             
             //spwans a missile from the f-40. time interval is the 1st arg. will need to change to touch activation later
             // _ = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(GameScene.spawnUserMissile), userInfo: nil, repeats: true)
         }
         
         f_40.physicsBody?.affectedByGravity = true
+        moveBackground = true
         
         
         
@@ -333,17 +336,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if touchingScreen {
             f_40.physicsBody?.velocity = CGVector(dx: 0, dy: 140)
         }
+        if moveBackground == true{
+            // 4 controls the speed below
+            bground.position = CGPoint(x: bground.position.x-6 , y: bground.position.y)
+            bground2.position = CGPoint(x: bground2.position.x-6, y: bground2.position.y)
         
-        // 4 controls the speed below
-        bground.position = CGPoint(x: bground.position.x-6 , y: bground.position.y)
-        bground2.position = CGPoint(x: bground2.position.x-6, y: bground2.position.y)
+            if(bground.position.x < -bground.size.width + self.size.width * 0.2){
+                bground.position = CGPointMake(bground2.position.x + bground2.size.width, bground.position.y)
+            }
         
-        if(bground.position.x < -bground.size.width + self.size.width * 0.2){
-            bground.position = CGPointMake(bground2.position.x + bground2.size.width, bground.position.y)
-        }
-        
-        if(bground2.position.x < -bground2.size.width + self.size.width * 0.2){
-            bground2.position = CGPointMake(bground.position.x + bground.size.width, bground2.position.y)
+            if(bground2.position.x < -bground2.size.width + self.size.width * 0.2){
+                bground2.position = CGPointMake(bground.position.x + bground.size.width, bground2.position.y)
+            }
         }
         
     }
