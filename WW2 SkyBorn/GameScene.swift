@@ -63,7 +63,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var bladeFrames = [SKTexture]();
         let numImages : Int = chopperAnimateedAtlas.textureNames.count
         for var i = 1; i <= numImages/2; i += 1 {
-            let chopperTextureName = "chopper/(i)"
+            let chopperTextureName = "chopper\(i)"
             bladeFrames.append(chopperAnimateedAtlas.textureNamed(chopperTextureName))
         }
         
