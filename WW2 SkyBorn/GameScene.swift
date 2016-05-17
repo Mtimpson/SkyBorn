@@ -114,7 +114,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //adds start button
         start = UIButton((frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 10)))
-        start.center = view.center
+        start.center = CGPoint(x: view.center.x, y: view.center.y - 15)
         start.setTitle("Press to Start!", forState: UIControlState.Normal)
         start.titleLabel!.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
         start.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
@@ -183,14 +183,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         f_40.removeFromParent()
         enemyMissile.removeFromParent()
         NSLog("hit by missile")
-        self.view?.presentScene(EndScene(), transition: SKTransition.crossFadeWithDuration(0.3))
+        if let scene = EndScene(fileNamed:"GameScene") {
+            // Configure the view.
+            let skView = self.view as SKView!
+            skView.showsFPS = true
+            skView.showsNodeCount = true
+            
+            /* Sprite Kit applies additional optimizations to improve rendering performance */
+            skView.ignoresSiblingOrder = true
+            
+            /* Set the scale mode to scale to fit the window */
+            scene.scaleMode = .AspectFill
+            
+            skView.presentScene(scene)
+        }
+
     }
     //call when mig collides with f-40 fire
     func f40AndMig(f_40: SKSpriteNode, enemyMig: SKSpriteNode){
         f_40.removeFromParent()
         enemyMig.removeFromParent()
         NSLog("hit by mig")
-        self.view?.presentScene(EndScene(), transition: SKTransition.crossFadeWithDuration(0.3))
+        if let scene = EndScene(fileNamed:"GameScene") {
+            // Configure the view.
+            let skView = self.view as SKView!
+            skView.showsFPS = true
+            skView.showsNodeCount = true
+            
+            /* Sprite Kit applies additional optimizations to improve rendering performance */
+            skView.ignoresSiblingOrder = true
+            
+            /* Set the scale mode to scale to fit the window */
+            scene.scaleMode = .AspectFill
+            
+            skView.presentScene(scene)
+        }
 
     }
     
