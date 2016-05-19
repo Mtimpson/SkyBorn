@@ -71,8 +71,9 @@ class StartScene: SKScene  {
         
         //adds 'SkyBorn' title
         skyborn = UILabel(frame: CGRect(x: 0, y: 0, width: width/2, height: 80))
-        skyborn.center = CGPoint(x: view.center.x*1.75, y: view.frame.size.height * 0.18)
+        skyborn.center = CGPoint(x: view.center.x, y: view.frame.size.height * 0.18)
         skyborn.text = "SkyBorn"
+        skyborn.textAlignment = NSTextAlignment.Center
         skyborn.font = UIFont(name: "AvenirNextCondensed-Bold", size: 80)
         skyborn.textColor = UIColor.lightTextColor()
         

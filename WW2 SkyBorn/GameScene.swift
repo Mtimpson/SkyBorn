@@ -16,23 +16,41 @@ var chopperWalkingFrames: [SKTexture]!
 // Phsics structure catagory.. EP1 Flappy
 struct PhysicsCatagory {
     static let f_40 : UInt32 = 1
-    static let enemyMig : UInt32 = 4
-    static let missile : UInt32 = 2
-    static let enemyMissile : UInt32 = 3
+    static let enemyMig : UInt32 = 2
+    static let userMissile : UInt32 = 4
+    static let enemyMissile : UInt32 = 8
+    static let scoreWall : UInt32 = 16
 }
 
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     var started = false
     
+    var hitCounter = Int()
+    var score = Int()
     var f_40 = SKSpriteNode()
     var bground = SKSpriteNode()
     var bground2 = SKSpriteNode()
     var text1 = SKTexture()
     var text2 = SKTexture()
     var enemyMig = SKSpriteNode()
+    var missile = SKSpriteNode()
+    var enemyMissile = SKSpriteNode()
     var start : UIButton!
     var moveBackground = false
+    var scoreWall = SKShapeNode()
+    var scoreLabel : UILabel!
+    var hitLabel : UILabel!
+    var total : UILabel!
+    var totalScore = Int()
+    var highscore : UILabel!
+    
+    //endscene variables
+    //button variables
+    var restart : UIButton!
+    var menu : UIButton!
+    var gameOver : UILabel!
+
     
     
     override func didMoveToView(view: SKView) {
@@ -41,30 +59,65 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //needed for contact to register
         physicsWorld.contactDelegate = self
         
+        //invisible wall at the x coordinate of the user, when enemy objects pass thru it score will increase
+        scoreWall = SKShapeNode(rectOfSize: CGSizeMake(5, self.frame.height * 2))
+        scoreWall.fillColor = UIColor.whiteColor()
+        scoreWall.position = CGPoint(x: self.frame.width / 2.5, y: 0)
+        scoreWall.zPosition = -99
+        scoreWall.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 5, height: self.frame.height * 2))
+        scoreWall.physicsBody?.categoryBitMask = PhysicsCatagory.scoreWall
+        scoreWall.physicsBody?.collisionBitMask = 0
+        scoreWall.physicsBody?.contactTestBitMask = PhysicsCatagory.enemyMissile | PhysicsCatagory.enemyMig
+        scoreWall.physicsBody?.dynamic = true
+        scoreWall.physicsBody?.affectedByGravity = false
+        scoreWall.physicsBody?.usesPreciseCollisionDetection = true
+        
+        
+        self.addChild(scoreWall)
+        
+        //label to track number of enemy objects avoided
+        scoreLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 20))
+        scoreLabel.text = "Evasions: \(score)"
+        scoreLabel.font = UIFont(name: "AvenirNextCondensed-Bold", size: 15)
+        scoreLabel.textColor = UIColor.whiteColor()
+        self.view?.addSubview(scoreLabel)
+        
+        //label to track number of enemy objects hit by missiles
+        hitLabel = UILabel(frame: CGRect(x: 100, y: 0, width: 100, height: 20))
+        hitLabel.text = "Hits: \(hitCounter)"
+        hitLabel.font = UIFont(name: "AvenirNextCondensed-Bold", size: 15)
+        hitLabel.textColor = UIColor.whiteColor()
+        self.view?.addSubview(hitLabel)
+
+        
+        
+        
+        
+        
         // Spawn in your f_40 plane at the left middle of the screen!
-        f_40 = SKSpriteNode(imageNamed: "chopper1")
+        f_40 = SKSpriteNode(imageNamed:"chopper1")
         f_40.size = CGSize(width: 90, height: 20)
         f_40.position = CGPoint(x: self.frame.width / 2.5, y: self.frame.height / 2)
+        f_40.zPosition = 1
         f_40.physicsBody = SKPhysicsBody(rectangleOfSize: f_40.size)
         f_40.physicsBody?.categoryBitMask = PhysicsCatagory.f_40
         // 0 means it will not bounce around when it collides with comething
         f_40.physicsBody?.collisionBitMask = 0
-        f_40.physicsBody?.contactTestBitMask = PhysicsCatagory.enemyMig
-        f_40.physicsBody?.contactTestBitMask = PhysicsCatagory.enemyMissile
+        f_40.physicsBody?.contactTestBitMask = PhysicsCatagory.enemyMig | PhysicsCatagory.enemyMissile
         f_40.physicsBody?.affectedByGravity = false
         f_40.physicsBody?.dynamic = true
         f_40.physicsBody?.usesPreciseCollisionDetection = true
         
         
         // Load the TextureAtlas for the chopper blades
-        let chopperAnimateedAtlas : SKTextureAtlas = SKTextureAtlas(named: "Chopper")
+        let chopperAnimatedAtlas : SKTextureAtlas = SKTextureAtlas(named: "Chopper")
         
         // Load the animation frames from the TextureAtlas
         var bladeFrames = [SKTexture]();
-        let numImages : Int = chopperAnimateedAtlas.textureNames.count
+        let numImages : Int = chopperAnimatedAtlas.textureNames.count
         for var i = 1; i <= numImages/2; i += 1 {
             let chopperTextureName = "chopper\(i)"
-            bladeFrames.append(chopperAnimateedAtlas.textureNamed(chopperTextureName))
+            bladeFrames.append(chopperAnimatedAtlas.textureNamed(chopperTextureName))
         }
         
         chopperWalkingFrames = bladeFrames
@@ -139,13 +192,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let body2 : SKPhysicsBody = contact.bodyB
         
         //check for f40 missile hitting a mig
-        if((body1.categoryBitMask == PhysicsCatagory.enemyMig) && (body2.categoryBitMask == PhysicsCatagory.missile) || (body1.categoryBitMask == PhysicsCatagory.missile) && (body2.categoryBitMask == PhysicsCatagory.enemyMig)){
+        if((body1.categoryBitMask == PhysicsCatagory.enemyMig) && (body2.categoryBitMask == PhysicsCatagory.userMissile) || (body1.categoryBitMask == PhysicsCatagory.userMissile) && (body2.categoryBitMask == PhysicsCatagory.enemyMig)){
             
-            migAndMissile(body1.node as! SKSpriteNode, missile: body2.node as! SKSpriteNode)
+            migAndMissile(body1.node as! SKSpriteNode, userMissile: body2.node as! SKSpriteNode)
         }
         
         //check for friendly missile hitting an enemy missile
-        if((body1.categoryBitMask == PhysicsCatagory.missile) && (body2.categoryBitMask == PhysicsCatagory.enemyMissile) || (body1.categoryBitMask == PhysicsCatagory.enemyMissile) && (body2.categoryBitMask == PhysicsCatagory.missile)){
+        if((body1.categoryBitMask == PhysicsCatagory.userMissile) && (body2.categoryBitMask == PhysicsCatagory.enemyMissile) || (body1.categoryBitMask == PhysicsCatagory.enemyMissile) && (body2.categoryBitMask == PhysicsCatagory.userMissile)){
             
             missileAndMissile(body1.node as! SKSpriteNode, enemyMissile: body2.node as! SKSpriteNode)
             
@@ -164,66 +217,62 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             f40AndMig(body1.node as! SKSpriteNode, enemyMig: body2.node as! SKSpriteNode)
         }
         
+        //check for enemyMissile or mig passing the user
+        if((body1.categoryBitMask == PhysicsCatagory.scoreWall) && (body2.categoryBitMask == PhysicsCatagory.enemyMissile) || (body1.categoryBitMask == PhysicsCatagory.enemyMissile) && (body2.categoryBitMask == PhysicsCatagory.scoreWall)){
+        
+            addToScore()
+        }
+        if((body1.categoryBitMask == PhysicsCatagory.scoreWall) && (body2.categoryBitMask == PhysicsCatagory.enemyMig) || (body1.categoryBitMask == PhysicsCatagory.enemyMig) && (body2.categoryBitMask == PhysicsCatagory.scoreWall)){
+            
+            addToScore()
+        }
+
+    }
+    
+    func didEndContact(contact: SKPhysicsContact) {
+        
+    }
+    
+    //call to increase score
+    func addToScore(){
+        score += 1
+        scoreLabel.text = "Evasions: \(score)"
     }
     
     //call when mig collides with f-40 fire
-    func migAndMissile(enemyMig: SKSpriteNode, missile: SKSpriteNode){
+    func migAndMissile(enemyMig: SKSpriteNode, userMissile: SKSpriteNode){
         enemyMig.removeFromParent()
-        missile.removeFromParent()
-        NSLog("Destory mig")
+        userMissile.removeFromParent()
+        NSLog("Destoryed mig")
+        hitCounter += 1
+        hitLabel.text = "Hits: \(hitCounter)"
     }
     //call when f-40 missile collides with mig missile
-    func missileAndMissile(missile: SKSpriteNode, enemyMissile: SKSpriteNode){
-        missile.removeFromParent()
+    func missileAndMissile(userMissile: SKSpriteNode, enemyMissile: SKSpriteNode){
+        userMissile.removeFromParent()
         enemyMissile.removeFromParent()
         NSLog("missile on missile")
+        hitCounter += 1
+        hitLabel.text = "Hits: \(hitCounter)"
     }
     //call when enemy missile hits our f-40
     func f40AndMissile(f_40: SKSpriteNode, enemyMissile: SKSpriteNode){
         f_40.removeFromParent()
         enemyMissile.removeFromParent()
         NSLog("hit by missile")
-        if let scene = EndScene(fileNamed:"GameScene") {
-            // Configure the view.
-            let skView = self.view as SKView!
-            skView.showsFPS = true
-            skView.showsNodeCount = true
-            
-            /* Sprite Kit applies additional optimizations to improve rendering performance */
-            skView.ignoresSiblingOrder = true
-            
-            /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .AspectFill
-            
-            skView.presentScene(scene)
-        }
-
+        endGame()
     }
-    //call when mig collides with f-40 fire
+    //call when mig collides with f-40
     func f40AndMig(f_40: SKSpriteNode, enemyMig: SKSpriteNode){
         f_40.removeFromParent()
         enemyMig.removeFromParent()
         NSLog("hit by mig")
-        if let scene = EndScene(fileNamed:"GameScene") {
-            // Configure the view.
-            let skView = self.view as SKView!
-            skView.showsFPS = true
-            skView.showsNodeCount = true
-            
-            /* Sprite Kit applies additional optimizations to improve rendering performance */
-            skView.ignoresSiblingOrder = true
-            
-            /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .AspectFill
-            
-            skView.presentScene(scene)
-        }
-
+        endGame()
     }
     
     //spawns a blue missle on the f-40 moving right
     func spawnUserMissile(){
-        let missile = SKSpriteNode(imageNamed: "missile")
+        missile = SKSpriteNode(imageNamed: "missile")
         missile.zPosition = 1
         missile.position = CGPointMake(f_40.position.x, f_40.position.y)
         missile.size.height = 150
@@ -233,21 +282,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //deletes the missile once off the screen
         let doneMoving = SKAction.removeFromParent()
         missile.runAction(SKAction.sequence([horizontalMove, doneMoving]))
-        
-        missile.physicsBody = SKPhysicsBody(rectangleOfSize: missile.size)
-        missile.physicsBody?.categoryBitMask = PhysicsCatagory.missile
-        missile.physicsBody?.contactTestBitMask = PhysicsCatagory.enemyMig
-        missile.physicsBody?.contactTestBitMask = PhysicsCatagory.enemyMissile
+    
+        missile.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(7, 2))
+        missile.physicsBody?.categoryBitMask = PhysicsCatagory.userMissile
+        missile.physicsBody?.collisionBitMask = 0
+        missile.physicsBody?.contactTestBitMask = PhysicsCatagory.enemyMig | PhysicsCatagory.enemyMissile
         missile.physicsBody?.affectedByGravity = false
-        missile.physicsBody?.dynamic = false
+        missile.physicsBody?.dynamic = true
         missile.physicsBody?.usesPreciseCollisionDetection = true
         
-        
-        
+
         self.addChild(missile)
         
-        //use line below to move missle non-horizontially. work out later
-        //let missleMovement = SKAction.moveBy(<#T##delta: CGVector##CGVector#>, duration: <#T##NSTimeInterval#>)
+        
         
     }
     
@@ -270,8 +317,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         enemyMig.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(10, 5))
         enemyMig.physicsBody?.categoryBitMask = PhysicsCatagory.enemyMig
-        enemyMig.physicsBody?.contactTestBitMask = PhysicsCatagory.missile
-        enemyMig.physicsBody?.contactTestBitMask = PhysicsCatagory.f_40
+        enemyMig.physicsBody?.collisionBitMask = PhysicsCatagory.userMissile | PhysicsCatagory.f_40 | PhysicsCatagory.scoreWall
+        enemyMig.physicsBody?.contactTestBitMask = PhysicsCatagory.userMissile | PhysicsCatagory.f_40 | PhysicsCatagory.scoreWall
         enemyMig.physicsBody?.affectedByGravity = false
         enemyMig.physicsBody?.dynamic = false
         enemyMig.physicsBody?.usesPreciseCollisionDetection = true
@@ -294,7 +341,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //creates a red missile from the migs that moves left
     func enemyMissiles(){
-        let enemyMissile = SKSpriteNode(imageNamed: "enemyMissile")
+        enemyMissile = SKSpriteNode(imageNamed: "enemyMissile")
         enemyMissile.zPosition = 1
         enemyMissile.position = CGPointMake(enemyMig.position.x, enemyMig.position.y)
         enemyMissile.size.height = 150
@@ -308,8 +355,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         enemyMissile.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(7,2))
         enemyMissile.physicsBody?.categoryBitMask = PhysicsCatagory.enemyMissile
-        enemyMissile.physicsBody?.contactTestBitMask = PhysicsCatagory.missile
-        enemyMissile.physicsBody?.contactTestBitMask = PhysicsCatagory.f_40
+        enemyMissile.physicsBody?.collisionBitMask = PhysicsCatagory.userMissile | PhysicsCatagory.f_40 | PhysicsCatagory.scoreWall
+        enemyMissile.physicsBody?.contactTestBitMask = PhysicsCatagory.userMissile | PhysicsCatagory.f_40 | PhysicsCatagory.scoreWall
         enemyMissile.physicsBody?.affectedByGravity = false
         enemyMissile.physicsBody?.dynamic = false
         enemyMissile.physicsBody?.usesPreciseCollisionDetection = true
@@ -318,7 +365,121 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    func endGame(){
+        moveBackground = false
+        
+        scoreWall.removeFromParent()
+        
+        totalScore = hitCounter + score
+        
+        //adds total score label
+        total = UILabel((frame: CGRect(x: 0, y: 0, width: 100, height: 30)))
+        total.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.23)
+        total.text = "Score: \(totalScore)"
+        total.textAlignment = NSTextAlignment.Center
+        total.font = UIFont(name: "AvenirNextCondensed-Bold", size: 25)
+        total.textColor = UIColor.lightTextColor()
+        self.view?.addSubview(total)
+        
+        //adds highscore label
+        highscore = UILabel((frame: CGRect(x: 0, y: 0, width: 150, height: 30)))
+        highscore.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.3)
+        highscore.text = "Highscore:"
+        highscore.textAlignment = NSTextAlignment.Center
+        highscore.font = UIFont(name: "AvenirNextCondensed-Bold", size: 25)
+        highscore.textColor = UIColor.lightTextColor()
+        self.view?.addSubview(highscore)
+
+        
+        
+        //adds game over label
+        gameOver = UILabel((frame: CGRect(x: 0, y: 0, width: 300, height: 60)))
+        gameOver.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.14)
+        gameOver.text = "Game Over"
+        gameOver.textAlignment = NSTextAlignment.Center
+        gameOver.font = UIFont(name: "AvenirNextCondensed-Bold", size: 60)
+        gameOver.textColor = UIColor.lightTextColor()
+        self.view?.addSubview(gameOver)
+        
+        //adds Restart button
+        restart = UIButton(frame: CGRect(x: 0, y: 0, width: view!.frame.size.width / 2.5, height: 40))
+        restart.center = CGPoint(x: view!.frame.size.width / 2, y: view!.frame.size.height * 0.4)
+        restart.setTitle("Restart", forState: UIControlState.Normal)
+        restart.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        restart.addTarget(self, action: #selector(GameScene.Restart), forControlEvents: UIControlEvents.TouchUpInside)
+        restart.layer.borderWidth = 1
+        restart.layer.borderColor = UIColor.whiteColor().CGColor
+        restart.backgroundColor = UIColor.lightTextColor()
+        restart.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        self.view?.addSubview(restart)
+        
+        //adds main menu button
+        menu = UIButton(frame:CGRect(x: 0, y: 0, width: view!.frame.size.width / 2.5, height: 40))
+        menu.center = CGPoint(x: view!.frame.size.width / 2, y: view!.frame.size.height * 0.5)
+        menu.setTitle("Main Menu", forState: UIControlState.Normal)
+        menu.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        menu.addTarget(self, action: #selector (GameScene.mainMenu), forControlEvents: UIControlEvents.TouchUpInside)
+        menu.layer.borderWidth = 1
+        menu.layer.borderColor = UIColor.whiteColor().CGColor
+        menu.backgroundColor = UIColor.lightTextColor()
+        menu.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        self.view?.addSubview(menu)
+    }
     
+    //what happens when the restart button is pressed
+    func Restart(){
+        highscore.removeFromSuperview()
+        scoreLabel.removeFromSuperview()
+        hitLabel.removeFromSuperview()
+        total.removeFromSuperview()
+        restart.removeFromSuperview()
+        gameOver.removeFromSuperview()
+        menu.removeFromSuperview()
+        
+        if let scene = GameScene(fileNamed:"GameScene") {
+            // Configure the view.
+            let skView = self.view as SKView!
+            skView.showsFPS = true
+            skView.showsNodeCount = true
+            
+            /* Sprite Kit applies additional optimizations to improve rendering performance */
+            skView.ignoresSiblingOrder = true
+            
+            /* Set the scale mode to scale to fit the window */
+            scene.scaleMode = .AspectFill
+            
+            skView.presentScene(scene)
+        }
+
+    
+    }
+    //when main menu button is pressed
+    func mainMenu(){
+        highscore.removeFromSuperview()
+        scoreLabel.removeFromSuperview()
+        hitLabel.removeFromSuperview()
+        total.removeFromSuperview()
+        restart.removeFromSuperview()
+        gameOver.removeFromSuperview()
+        menu.removeFromSuperview()
+        
+        if let scene = StartScene(fileNamed:"GameScene") {
+            // Configure the view.
+            let skView = self.view as SKView!
+            skView.showsFPS = true
+            skView.showsNodeCount = true
+            
+            /* Sprite Kit applies additional optimizations to improve rendering performance */
+            skView.ignoresSiblingOrder = true
+            
+            /* Set the scale mode to scale to fit the window */
+            scene.scaleMode = .AspectFill
+            
+            skView.presentScene(scene)
+        }
+        
+    }
+
     
 
     var touchingScreen = false
@@ -336,7 +497,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             _ = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(GameScene.createEnemyMig), userInfo: nil, repeats: true)
             
             //spwans a missile from the f-40. time interval is the 1st arg. will need to change to touch activation later
-            // _ = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(GameScene.spawnUserMissile), userInfo: nil, repeats: true)
+            _ = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(GameScene.spawnUserMissile), userInfo: nil, repeats: true)
         }
         
         f_40.physicsBody?.affectedByGravity = true
@@ -358,13 +519,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //infinitely scrolls the background to the left.. Also fuctions the touch mechanic.
     override func update(currentTime: NSTimeInterval){
-        
-        
         if touchingScreen {
             f_40.physicsBody?.velocity = CGVector(dx: 0, dy: 140)
         }
         if moveBackground == true{
             // 4 controls the speed below
+            
             bground.position = CGPoint(x: bground.position.x-6 , y: bground.position.y)
             bground2.position = CGPoint(x: bground2.position.x-6, y: bground2.position.y)
         
@@ -375,6 +535,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if(bground2.position.x < -bground2.size.width + self.size.width * 0.2){
                 bground2.position = CGPointMake(bground.position.x + bground.size.width, bground2.position.y)
             }
+            
+            
         }
         
     }
