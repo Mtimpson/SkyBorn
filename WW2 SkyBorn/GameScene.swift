@@ -20,6 +20,7 @@ struct PhysicsCatagory {
     static let userMissile : UInt32 = 4
     static let enemyMissile : UInt32 = 8
     static let scoreWall : UInt32 = 16
+   
 }
 
 
@@ -44,7 +45,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var total : UILabel!
     var totalScore = Int()
     var highscore : UILabel!
-    
+    var fireBtn : UIButton!
+   
     //endscene variables
     //button variables
     var restart : UIButton!
@@ -88,11 +90,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         hitLabel.font = UIFont(name: "AvenirNextCondensed-Bold", size: 15)
         hitLabel.textColor = UIColor.whiteColor()
         self.view?.addSubview(hitLabel)
-
         
         
-        
-        
+        //adds a fire button spawning a missile
+        fireBtn = UIButton(frame: CGRect(x: 0, y: view.frame.height * 0.938 , width: 50, height: 35))
+        fireBtn.setTitle("Fire", forState: UIControlState.Normal)
+        fireBtn.titleLabel?.textAlignment = NSTextAlignment.Center
+        fireBtn.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+        fireBtn.addTarget(self, action: #selector(GameScene.spawnUserMissile), forControlEvents: UIControlEvents.TouchUpInside)
+        fireBtn.layer.borderWidth = 2
+        fireBtn.layer.borderColor = UIColor.redColor().CGColor
+        fireBtn.backgroundColor = UIColor.lightTextColor()
+        fireBtn.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        self.view?.addSubview(fireBtn)
+        self.fireBtn.enabled = false
+        //allows the fire button to be pushed every half second
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(GameScene.enableFireBtn), userInfo: nil, repeats: true)
+       
         
         // Spawn in your f_40 plane at the left middle of the screen!
         f_40 = SKSpriteNode(imageNamed:"chopper1")
@@ -272,9 +286,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //spawns a blue missle on the f-40 moving right
     func spawnUserMissile(){
+        self.fireBtn.enabled = false
         missile = SKSpriteNode(imageNamed: "missile")
         missile.zPosition = 1
-        missile.position = CGPointMake(f_40.position.x, f_40.position.y)
+        missile.position = CGPointMake(f_40.position.x, f_40.position.y-4)
         missile.size.height = 150
         missile.size.width = 80
         //moves the missile. last arg controls the speed (lower = faster) will replace this later
@@ -328,7 +343,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         //moves migs accross the screen to the left
-        let moveMig = SKAction.moveByX(-self.size.width, y: 0, duration: 3)
+        let moveMig = SKAction.moveByX(-self.size.width, y: 0, duration: 3.5)
         //deletes mig once off screen
         let doneMoving = SKAction.removeFromParent()
         enemyMig.runAction(SKAction.sequence([moveMig, doneMoving]))
@@ -347,7 +362,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         enemyMissile.size.height = 150
         enemyMissile.size.width = 80
         //moves the missile. last arg controls the speed (lower = faster)
-        let enemyFire = SKAction.moveByX(-self.size.width, y: 0, duration: 1.5)
+        let enemyFire = SKAction.moveByX(-self.size.width, y: 0, duration: 2)
         //deletes red missile once off screen
         let doneMoving = SKAction.removeFromParent()
         enemyMissile.runAction(SKAction.sequence([enemyFire, doneMoving]))
@@ -369,6 +384,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         moveBackground = false
         
         scoreWall.removeFromParent()
+        fireBtn.removeFromSuperview()
         
         totalScore = hitCounter + score
         
@@ -378,7 +394,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         total.text = "Score: \(totalScore)"
         total.textAlignment = NSTextAlignment.Center
         total.font = UIFont(name: "AvenirNextCondensed-Bold", size: 25)
-        total.textColor = UIColor.lightTextColor()
+        total.textColor = UIColor.whiteColor()
         self.view?.addSubview(total)
         
         //adds highscore label
@@ -387,7 +403,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         highscore.text = "Highscore:"
         highscore.textAlignment = NSTextAlignment.Center
         highscore.font = UIFont(name: "AvenirNextCondensed-Bold", size: 25)
-        highscore.textColor = UIColor.lightTextColor()
+        highscore.textColor = UIColor.whiteColor()
         self.view?.addSubview(highscore)
 
         
@@ -398,7 +414,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gameOver.text = "Game Over"
         gameOver.textAlignment = NSTextAlignment.Center
         gameOver.font = UIFont(name: "AvenirNextCondensed-Bold", size: 60)
-        gameOver.textColor = UIColor.lightTextColor()
+        gameOver.textColor = UIColor.whiteColor()
         self.view?.addSubview(gameOver)
         
         //adds Restart button
@@ -494,10 +510,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if (!(f_40.physicsBody?.affectedByGravity)!) {
             //calls the createEnemyMig function every 1 second. 1st arg is time interval
-            _ = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(GameScene.createEnemyMig), userInfo: nil, repeats: true)
+            NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(GameScene.createEnemyMig), userInfo: nil, repeats: true)
             
             //spwans a missile from the f-40. time interval is the 1st arg. will need to change to touch activation later
-            _ = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(GameScene.spawnUserMissile), userInfo: nil, repeats: true)
+           // NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(GameScene.spawnUserMissile), userInfo: nil, repeats: true)
+            
         }
         
         f_40.physicsBody?.affectedByGravity = true
@@ -506,6 +523,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
     }
+    
+    //called to renable firing a missle (called by the NSTimer where button is made)
+    func enableFireBtn(){
+        self.fireBtn.enabled = true
+    }
+
     
     override func touchesCancelled(touches: Set<UITouch>!, withEvent event: UIEvent!) {
         super.touchesCancelled(touches, withEvent: event)
