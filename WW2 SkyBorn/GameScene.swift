@@ -44,8 +44,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var hitLabel : UILabel!
     var total : UILabel!
     var totalScore = Int()
-    var highscore : UILabel!
+    var highscoreLabel : UILabel!
     var fireBtn : UIButton!
+    //array of highscores to be accessible in the StartScene
+    var highscoresArr : [NSInteger] = [NSInteger](count: 10, repeatedValue: 0)
    
     //endscene variables
     //button variables
@@ -380,6 +382,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    //called when the user loses
     func endGame(){
         moveBackground = false
         
@@ -387,6 +390,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         fireBtn.removeFromSuperview()
         
         totalScore = hitCounter + score
+        
+        //default creats a mode to access scores in other files and does not reset between plays
+        let highscoreDefault = NSUserDefaults.standardUserDefaults()
+        highscoresArr = highscoreDefault.valueForKey("highscoresArr") as! [NSInteger]
+        
+        highscoresArr.sortInPlace()
+        
+        //add the new score to the array if a top ten score
+        if (totalScore > highscoresArr[0]){
+            highscoresArr[0] = totalScore
+            highscoresArr.sortInPlace()
+        }
+        
+        //sorts the array in descending order
+        highscoresArr = highscoresArr.reverse()
+
+        //puts the actual array in the default under the listed key
+        highscoreDefault.setValue(highscoresArr, forKey: "highscoresArr")
+        
+        
         
         //adds total score label
         total = UILabel((frame: CGRect(x: 0, y: 0, width: 100, height: 30)))
@@ -397,14 +420,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         total.textColor = UIColor.whiteColor()
         self.view?.addSubview(total)
         
-        //adds highscore label
-        highscore = UILabel((frame: CGRect(x: 0, y: 0, width: 150, height: 30)))
-        highscore.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.3)
-        highscore.text = "Highscore:"
-        highscore.textAlignment = NSTextAlignment.Center
-        highscore.font = UIFont(name: "AvenirNextCondensed-Bold", size: 25)
-        highscore.textColor = UIColor.whiteColor()
-        self.view?.addSubview(highscore)
+        //adds a highscore label
+        highscoreLabel = UILabel((frame: CGRect(x: 0, y: 0, width: 150, height: 30)))
+        highscoreLabel.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.3)
+        highscoreLabel.text = "Highscore: \(highscoresArr[0])"
+        highscoreLabel.textAlignment = NSTextAlignment.Center
+        highscoreLabel.font = UIFont(name: "AvenirNextCondensed-Bold", size: 25)
+        highscoreLabel.textColor = UIColor.whiteColor()
+        self.view?.addSubview(highscoreLabel)
 
         
         
@@ -440,11 +463,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         menu.backgroundColor = UIColor.lightTextColor()
         menu.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
         self.view?.addSubview(menu)
+        
+        
     }
     
     //what happens when the restart button is pressed
     func Restart(){
-        highscore.removeFromSuperview()
+        highscoreLabel.removeFromSuperview()
         scoreLabel.removeFromSuperview()
         hitLabel.removeFromSuperview()
         total.removeFromSuperview()
@@ -471,7 +496,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     //when main menu button is pressed
     func mainMenu(){
-        highscore.removeFromSuperview()
+        highscoreLabel.removeFromSuperview()
         scoreLabel.removeFromSuperview()
         hitLabel.removeFromSuperview()
         total.removeFromSuperview()
