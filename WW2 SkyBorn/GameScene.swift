@@ -518,7 +518,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         //adds total score label
-        total = UILabel((frame: CGRect(x: 0, y: 0, width: 100, height: 30)))
+        total = UILabel((frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 30)))
         total.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.23)
         total.text = "Score: \(totalScore)"
         total.textAlignment = NSTextAlignment.Center
@@ -527,7 +527,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.view?.addSubview(total)
         
         //adds a highscore label
-        highscoreLabel = UILabel((frame: CGRect(x: 0, y: 0, width: 150, height: 30)))
+        highscoreLabel = UILabel((frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 30)))
         highscoreLabel.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.3)
         highscoreLabel.text = "Highscore: \(highscoresArr[0])"
         highscoreLabel.textAlignment = NSTextAlignment.Center
