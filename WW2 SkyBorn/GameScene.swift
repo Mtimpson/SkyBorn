@@ -21,7 +21,7 @@ struct PhysicsCatagory {
     static let enemyMissile : UInt32 = 8
     static let scoreWall : UInt32 = 16
     static let ground : UInt32 = 32
-    static let ceiling : UInt32 = 32
+    static let ceiling : UInt32 = 33
    
 }
 
@@ -351,6 +351,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         NSLog("hit ceiling")
         endGame()
     }
+    
     //spawns a blue missle on the f-40 moving right
     func spawnUserMissile(){
         self.fireBtn.enabled = false
