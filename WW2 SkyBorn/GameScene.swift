@@ -20,6 +20,7 @@ struct PhysicsCatagory {
     static let userMissile : UInt32 = 4
     static let enemyMissile : UInt32 = 8
     static let scoreWall : UInt32 = 16
+    static let ground : UInt32 = 32
    
 }
 
@@ -40,6 +41,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var start : UIButton!
     var moveBackground = false
     var scoreWall = SKShapeNode()
+    var ground = SKShapeNode()
     var scoreLabel : UILabel!
     var hitLabel : UILabel!
     var total : UILabel!
@@ -63,11 +65,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //needed for contact to register
         physicsWorld.contactDelegate = self
         
+        //acts as the ground to detect collisions when flying too low
+        ground = SKShapeNode(rectOfSize: CGSizeMake(self.frame.width * 2, 5))
+        ground.fillColor = UIColor.whiteColor()
+        ground.position = CGPoint(x: 0, y: self.frame.height * 0.075)
+        ground.zPosition = -10
+        ground.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: self.frame.width * 2, height: 5))
+        ground.physicsBody?.categoryBitMask = PhysicsCatagory.ground
+        ground.physicsBody?.collisionBitMask = 0
+        ground.physicsBody?.contactTestBitMask = PhysicsCatagory.f_40
+        ground.physicsBody?.dynamic = true
+        ground.physicsBody?.affectedByGravity = false
+        ground.physicsBody?.usesPreciseCollisionDetection = true
+        self.addChild(ground)
+        
+        
         //invisible wall at the x coordinate of the user, when enemy objects pass thru it score will increase
         scoreWall = SKShapeNode(rectOfSize: CGSizeMake(5, self.frame.height * 2))
         scoreWall.fillColor = UIColor.whiteColor()
         scoreWall.position = CGPoint(x: self.frame.width / 2.5, y: 0)
-        scoreWall.zPosition = -99
+        scoreWall.zPosition = -10
         scoreWall.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 5, height: self.frame.height * 2))
         scoreWall.physicsBody?.categoryBitMask = PhysicsCatagory.scoreWall
         scoreWall.physicsBody?.collisionBitMask = 0
@@ -95,17 +112,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         //adds a fire button spawning a missile
-        fireBtn = UIButton(frame: CGRect(x: 0, y: view.frame.height * 0.938 , width: 50, height: 35))
+        //for rectangle button
+        //fireBtn = UIButton(frame: CGRect(x: 0, y: view.frame.height * 0.938 , width: 50, height: 35))
+        //next 2 lines create a circle button
+        fireBtn = UIButton(type: .Custom)
+        fireBtn.frame = CGRectMake(0, view.frame.height * 0.91, 50, 50)
+        fireBtn.layer.cornerRadius = 0.5 * fireBtn.bounds.size.width
         fireBtn.setTitle("Fire", forState: UIControlState.Normal)
         fireBtn.titleLabel?.textAlignment = NSTextAlignment.Center
-        fireBtn.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+        fireBtn.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
         fireBtn.addTarget(self, action: #selector(GameScene.spawnUserMissile), forControlEvents: UIControlEvents.TouchUpInside)
         fireBtn.layer.borderWidth = 2
-        fireBtn.layer.borderColor = UIColor.redColor().CGColor
+        fireBtn.layer.borderColor = UIColor.whiteColor().CGColor
         fireBtn.backgroundColor = UIColor.lightTextColor()
         fireBtn.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        fireBtn.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
+        
         self.view?.addSubview(fireBtn)
         self.fireBtn.enabled = false
+        fireBtn.enabled = false
         //allows the fire button to be pushed every half second
         NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(GameScene.enableFireBtn), userInfo: nil, repeats: true)
        
@@ -119,7 +144,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         f_40.physicsBody?.categoryBitMask = PhysicsCatagory.f_40
         // 0 means it will not bounce around when it collides with comething
         f_40.physicsBody?.collisionBitMask = 0
-        f_40.physicsBody?.contactTestBitMask = PhysicsCatagory.enemyMig | PhysicsCatagory.enemyMissile
+        f_40.physicsBody?.contactTestBitMask = PhysicsCatagory.enemyMig | PhysicsCatagory.enemyMissile | PhysicsCatagory.ground
         f_40.physicsBody?.affectedByGravity = false
         f_40.physicsBody?.dynamic = true
         f_40.physicsBody?.usesPreciseCollisionDetection = true
@@ -242,6 +267,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             addToScore()
         }
+        
+        //check for user hitting the ground
+        if((body1.categoryBitMask == PhysicsCatagory.ground) && (body2.categoryBitMask == PhysicsCatagory.f_40) || (body1.categoryBitMask == PhysicsCatagory.f_40) && (body2.categoryBitMask == PhysicsCatagory.ground)){
+            
+            hitGround()
+        }
+
 
     }
     
@@ -283,6 +315,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         f_40.removeFromParent()
         enemyMig.removeFromParent()
         NSLog("hit by mig")
+        endGame()
+    }
+    
+    func hitGround(){
+        f_40.removeFromParent()
+        NSLog("hit ground")
         endGame()
     }
     
@@ -398,7 +436,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         highscoresArr.sortInPlace()
         
         //add the new score to the array if a top ten score
-        if (totalScore > highscoresArr[0]){
+        if(highscoresArr.isEmpty){
+            var indx = 1
+            highscoresArr.append(totalScore)
+            while indx < 10 {
+                highscoresArr.append(0)
+                indx = indx + 1
+            }
+        
+        } else if (totalScore > highscoresArr[0]){
             highscoresArr[0] = totalScore
             highscoresArr.sortInPlace()
         }
@@ -450,6 +496,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         restart.layer.borderColor = UIColor.whiteColor().CGColor
         restart.backgroundColor = UIColor.lightTextColor()
         restart.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        //changes text color when pushed
+        restart.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
         self.view?.addSubview(restart)
         
         //adds main menu button
@@ -462,6 +510,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         menu.layer.borderColor = UIColor.whiteColor().CGColor
         menu.backgroundColor = UIColor.lightTextColor()
         menu.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        //changes text color when pushed
+        menu.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
+
         self.view?.addSubview(menu)
         
         

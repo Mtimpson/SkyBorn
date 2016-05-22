@@ -29,11 +29,28 @@ class StartScene: SKScene  {
         let width = self.size.width
         let height = self.size.height
         
+        
         //creates a defualt able to access the array of highscores we stored
         let highscoreDefault = NSUserDefaults.standardUserDefaults()
-        //grabs the array of scores from the default
-        highscoresArr = highscoreDefault.valueForKey("highscoresArr") as! [NSInteger]
         
+        //checks to see if the app has been launched before. If so, it pulls the array of high scores and if not, it creates an array of high scores. Prevents errors 
+        func isAppAlreadyLaunchedOnce()->Bool{
+            let defaults = NSUserDefaults.standardUserDefaults()
+            
+            if let isAppAlreadyLaunchedOnce = defaults.stringForKey("isAppAlreadyLaunchedOnce"){
+                print("App already launched : \(isAppAlreadyLaunchedOnce)")
+                highscoresArr = highscoreDefault.valueForKey("highscoresArr") as! [NSInteger]
+                return true
+            }else{
+                highscoresArr = [NSInteger](count: 10, repeatedValue: 0)
+                highscoreDefault.setValue(highscoresArr, forKey: "highscoresArr")
+                defaults.setBool(true, forKey: "isAppAlreadyLaunchedOnce")
+                print("App launched first time")
+                return false
+            }
+        }
+    
+        isAppAlreadyLaunchedOnce()
         NSLog("\(highscoresArr)")
 
         
@@ -66,6 +83,8 @@ class StartScene: SKScene  {
         playBtn.layer.borderColor = UIColor.whiteColor().CGColor
         playBtn.backgroundColor = UIColor.lightTextColor()
         playBtn.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        //changes text color when pushed
+        playBtn.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
 
         self.view?.addSubview(playBtn)
         
@@ -81,6 +100,8 @@ class StartScene: SKScene  {
         scoresBtn.layer.borderColor = UIColor.whiteColor().CGColor
         scoresBtn.backgroundColor = UIColor.lightTextColor()
         scoresBtn.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        //changes text color when pushed
+        scoresBtn.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
 
         
         self.view?.addSubview(scoresBtn)
@@ -167,6 +188,8 @@ class StartScene: SKScene  {
         menu.layer.borderColor = UIColor.whiteColor().CGColor
         menu.backgroundColor = UIColor.lightTextColor()
         menu.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        //changes text color when pushed
+        menu.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
         self.view?.addSubview(menu)
 
 
