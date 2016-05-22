@@ -21,6 +21,7 @@ struct PhysicsCatagory {
     static let enemyMissile : UInt32 = 8
     static let scoreWall : UInt32 = 16
     static let ground : UInt32 = 32
+    static let ceiling : UInt32 = 32
    
 }
 
@@ -42,6 +43,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var moveBackground = false
     var scoreWall = SKShapeNode()
     var ground = SKShapeNode()
+    var ceiling = SKShapeNode()
     var scoreLabel : UILabel!
     var hitLabel : UILabel!
     var total : UILabel!
@@ -78,6 +80,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ground.physicsBody?.affectedByGravity = false
         ground.physicsBody?.usesPreciseCollisionDetection = true
         self.addChild(ground)
+        
+        //acts as the ceiling to detect collisions when flying to high
+        ceiling = SKShapeNode(rectOfSize: CGSizeMake(self.frame.width * 2, 5))
+        ceiling.fillColor = UIColor.whiteColor()
+        ceiling.position = CGPoint(x: 0, y: self.frame.height)
+        ceiling.zPosition = -10
+        ceiling.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: self.frame.width * 2, height: 5))
+        ceiling.physicsBody?.categoryBitMask = PhysicsCatagory.ceiling
+        ceiling.physicsBody?.collisionBitMask = 0
+        ceiling.physicsBody?.contactTestBitMask = PhysicsCatagory.f_40
+        ceiling.physicsBody?.dynamic = true
+        ceiling.physicsBody?.affectedByGravity = false
+        ceiling.physicsBody?.usesPreciseCollisionDetection = true
+        self.addChild(ceiling)
         
         
         //invisible wall at the x coordinate of the user, when enemy objects pass thru it score will increase
@@ -273,6 +289,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             hitGround()
         }
+        
+        //check for flying above the screen
+        if((body1.categoryBitMask == PhysicsCatagory.ceiling) && (body2.categoryBitMask == PhysicsCatagory.f_40) || (body1.categoryBitMask == PhysicsCatagory.f_40) && (body2.categoryBitMask == PhysicsCatagory.ceiling)){
+            
+            hitCeiling()
+        }
 
 
     }
@@ -324,6 +346,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         endGame()
     }
     
+    func hitCeiling(){
+        f_40.removeFromParent()
+        NSLog("hit ceiling")
+        endGame()
+    }
     //spawns a blue missle on the f-40 moving right
     func spawnUserMissile(){
         self.fireBtn.enabled = false
