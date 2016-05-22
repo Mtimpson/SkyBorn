@@ -155,22 +155,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         fireBtn.enabled = false
         //allows the fire button to be pushed every half second
         NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(GameScene.enableFireBtn), userInfo: nil, repeats: true)
-       
-        
-        // Spawn in your f_40 plane at the left middle of the screen!
-        f_40 = SKSpriteNode(imageNamed:"chopper1")
-        f_40.size = CGSize(width: 90, height: 20)
-        f_40.position = CGPoint(x: self.frame.width / 2.5, y: self.frame.height / 2)
-        f_40.zPosition = 1
-        f_40.physicsBody = SKPhysicsBody(rectangleOfSize: f_40.size)
-        f_40.physicsBody?.categoryBitMask = PhysicsCatagory.f_40
-        // 0 means it will not bounce around when it collides with comething
-        f_40.physicsBody?.collisionBitMask = 0
-        f_40.physicsBody?.contactTestBitMask = PhysicsCatagory.enemyMig | PhysicsCatagory.enemyMissile | PhysicsCatagory.ground
-        f_40.physicsBody?.affectedByGravity = false
-        f_40.physicsBody?.dynamic = true
-        f_40.physicsBody?.usesPreciseCollisionDetection = true
-        
         
         // Load the TextureAtlas for the chopper blades
         let chopperAnimatedAtlas : SKTextureAtlas = SKTextureAtlas(named: "Chopper")
@@ -187,13 +171,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Create Chopper Sprite, Setup Position in middle of the screen, add to Scene
         let temp : SKTexture = chopperWalkingFrames[0]
-        chopper = SKSpriteNode(texture: temp)
-        chopper.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidX(self.frame))
-       // addChild(chopper)
+        f_40 = SKSpriteNode(texture: temp)
+        f_40.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidX(self.frame))
+        //addChild(chopper)
         
         spinChopper()
-    
+        
         self.addChild(f_40)
+       
+        
+        // Spawn in your f_40 plane at the left middle of the screen!
+        //f_40 = SKSpriteNode(imageNamed:"chopper1")
+        f_40.size = CGSize(width: 90, height: 20)
+        f_40.position = CGPoint(x: self.frame.width / 2.5, y: self.frame.height / 2)
+        f_40.zPosition = 1
+        f_40.physicsBody = SKPhysicsBody(rectangleOfSize: f_40.size)
+        f_40.physicsBody?.categoryBitMask = PhysicsCatagory.f_40
+        // 0 means it will not bounce around when it collides with comething
+        f_40.physicsBody?.collisionBitMask = 0
+        f_40.physicsBody?.contactTestBitMask = PhysicsCatagory.enemyMig | PhysicsCatagory.enemyMissile | PhysicsCatagory.ground
+        f_40.physicsBody?.affectedByGravity = false
+        f_40.physicsBody?.dynamic = true
+        f_40.physicsBody?.usesPreciseCollisionDetection = true
+        
+        
+        
         
         
                 
@@ -244,7 +246,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func spinChopper() {
         // General runAction method to make the chopper blades spin.
-        chopper.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(chopperWalkingFrames, timePerFrame: 0.1, resize: false, restore: true)))
+        f_40.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(chopperWalkingFrames, timePerFrame: 0.1, resize: false, restore: true)))
     }
     
     //used to determine when collisions happen
