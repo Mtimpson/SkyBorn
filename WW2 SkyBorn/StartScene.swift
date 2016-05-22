@@ -14,15 +14,29 @@ import UIKit
 class StartScene: SKScene  {
     var playBtn : UIButton!
     var scoresBtn : UIButton!
+    var statsBtn : UIButton!
     var text1 = SKTexture()
     var bground = SKSpriteNode()
     var skyborn : UILabel!
     var highscoresArr : [NSInteger] = [NSInteger]()
     var highscoreTitle : UILabel!
+    var shotsFired: Int!
+    var totalHits : Int!
+    var allTimeScore : Int!
+    var totalEvasions : Int!
+    var hitPercent : Double!
     var scoreTitles : UILabel!
     var labelY : CGFloat!
     var menu : UIButton!
     var labelArr : [UILabel] = [UILabel]()
+    var statsTitle : UILabel!
+    var fromScoresPage = false
+    var fromStatsPage = false
+    var shotsFiredLabel: UILabel!
+    var totalHitsLabel : UILabel!
+    var allTimeScoreLabel : UILabel!
+    var totalEvasionsLabel : UILabel!
+    var hitPercentLabel : UILabel!
   
     
     override func didMoveToView(view: SKView) {
@@ -40,10 +54,25 @@ class StartScene: SKScene  {
             if let isAppAlreadyLaunchedOnce = defaults.stringForKey("isAppAlreadyLaunchedOnce"){
                 print("App already launched : \(isAppAlreadyLaunchedOnce)")
                 highscoresArr = highscoreDefault.valueForKey("highscoresArr") as! [NSInteger]
+                shotsFired = highscoreDefault.valueForKey("shotsFired") as! Int
+                totalHits = highscoreDefault.valueForKey("totalHits") as! Int
+                allTimeScore = highscoreDefault.valueForKey("allTimeScore") as! Int
+                totalEvasions = highscoreDefault.valueForKey("totalEvasions") as! Int
+                hitPercent = highscoreDefault.valueForKey("hitPercent") as! Double
                 return true
             }else{
                 highscoresArr = [NSInteger](count: 10, repeatedValue: 0)
+                shotsFired = 0
+                totalHits = 0
+                totalEvasions = 0
+                allTimeScore = 0
+                hitPercent = 0.00
                 highscoreDefault.setValue(highscoresArr, forKey: "highscoresArr")
+                highscoreDefault.setValue(shotsFired, forKey: "shotsFired")
+                highscoreDefault.setValue(totalHits, forKey: "totalHits")
+                highscoreDefault.setValue(totalEvasions, forKey: "totalEvasions")
+                highscoreDefault.setValue(allTimeScore, forKey: "allTimeScore")
+                highscoreDefault.setValue(hitPercent, forKey: "hitPercent")
                 defaults.setBool(true, forKey: "isAppAlreadyLaunchedOnce")
                 print("App launched first time")
                 return false
@@ -102,9 +131,24 @@ class StartScene: SKScene  {
         scoresBtn.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
         //changes text color when pushed
         scoresBtn.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
-
         
-        self.view?.addSubview(scoresBtn)
+         self.view?.addSubview(scoresBtn)
+        
+        //adds stats button
+        statsBtn = UIButton(frame: CGRect(x: 0, y: 0, width: view.frame.size.width / 2.5, height: 40))
+        statsBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.6)
+        statsBtn.setTitle("Statistics", forState: UIControlState.Normal)
+        statsBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        statsBtn.addTarget(self, action: #selector(StartScene.showStats), forControlEvents:
+            UIControlEvents.TouchUpInside)
+        statsBtn.layer.borderWidth = 1
+        statsBtn.layer.borderColor = UIColor.whiteColor().CGColor
+        statsBtn.backgroundColor = UIColor.lightTextColor()
+        statsBtn.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        //changes text color when pushed
+        statsBtn.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
+
+        self.view?.addSubview(statsBtn)
         
         //adds 'SkyBorn' title
         skyborn = UILabel(frame: CGRect(x: 0, y: 0, width: width/2, height: 80))
@@ -125,6 +169,7 @@ class StartScene: SKScene  {
         playBtn.removeFromSuperview()
         scoresBtn.removeFromSuperview()
         skyborn.removeFromSuperview()
+        statsBtn.removeFromSuperview()
         
         //calls the game to be played
         if let scene = GameScene(fileNamed:"GameScene") {
@@ -150,6 +195,7 @@ class StartScene: SKScene  {
         skyborn.removeFromSuperview()
         playBtn.removeFromSuperview()
         scoresBtn.removeFromSuperview()
+        statsBtn.removeFromSuperview()
         
         //adds highscore title
         highscoreTitle = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width / 2, height: 80))
@@ -191,6 +237,8 @@ class StartScene: SKScene  {
         //changes text color when pushed
         menu.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
         self.view?.addSubview(menu)
+        
+        fromScoresPage = true
 
 
         
@@ -233,13 +281,31 @@ class StartScene: SKScene  {
     }
     //called from the highscores screen to return to the main menu
     func mainMenu(){
-        var index = 0
-        while index < 10 {
-            labelArr[index].removeFromSuperview()
-            index += 1
+        //removes highscore labels if clicked from highscores page
+        if(fromScoresPage){
+            var index = 0
+            while index < 10 {
+                labelArr[index].removeFromSuperview()
+                index += 1
+            }
+            highscoreTitle.removeFromSuperview()
         }
         
-        highscoreTitle.removeFromSuperview()
+        //removes stats labels if clicked from stats page
+        if(fromStatsPage){
+            statsTitle.removeFromSuperview()
+            shotsFiredLabel.removeFromSuperview()
+            allTimeScoreLabel.removeFromSuperview()
+            hitPercentLabel.removeFromSuperview()
+            totalEvasionsLabel.removeFromSuperview()
+            totalHitsLabel.removeFromSuperview()
+        }
+        
+        //sets from___page booleans to false
+        fromStatsPage = false
+        fromScoresPage = false
+        
+       
         menu.removeFromSuperview()
         
         if let scene = StartScene(fileNamed:"GameScene") {
@@ -257,6 +323,80 @@ class StartScene: SKScene  {
             skView.presentScene(scene)
         }
         
+    }
+    
+    func showStats(){
+        skyborn.removeFromSuperview()
+        playBtn.removeFromSuperview()
+        scoresBtn.removeFromSuperview()
+        statsBtn.removeFromSuperview()
+        
+        //adds main menu button
+        menu = UIButton(frame:CGRect(x: 0, y: 0, width: view!.frame.size.width / 2.5, height: 40))
+        menu.center = CGPoint(x: view!.frame.size.width / 2, y: view!.frame.size.height * 0.8)
+        menu.setTitle("Main Menu", forState: UIControlState.Normal)
+        menu.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        menu.addTarget(self, action: #selector (GameScene.mainMenu), forControlEvents: UIControlEvents.TouchUpInside)
+        menu.layer.borderWidth = 1
+        menu.layer.borderColor = UIColor.whiteColor().CGColor
+        menu.backgroundColor = UIColor.lightTextColor()
+        menu.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        //changes text color when pushed
+        menu.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
+        self.view?.addSubview(menu)
+
+        //adds stats title
+        statsTitle = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width / 2, height: 80))
+        statsTitle.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.18)
+        statsTitle.text = "Statistics"
+        statsTitle.textAlignment = NSTextAlignment.Center
+        statsTitle.font = UIFont(name: "AvenirNextCondensed-Bold", size: 60)
+        statsTitle.textColor = UIColor.whiteColor()
+        self.view?.addSubview(statsTitle)
+        
+        allTimeScoreLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 20))
+        allTimeScoreLabel.text = "Total Score: \(allTimeScore)"
+        allTimeScoreLabel.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.3)
+        allTimeScoreLabel.textAlignment = NSTextAlignment.Center
+        allTimeScoreLabel.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        allTimeScoreLabel.textColor = UIColor.whiteColor()
+        self.view?.addSubview(allTimeScoreLabel)
+        
+        totalEvasionsLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 20))
+        totalEvasionsLabel.text = "Total Evasions: \(totalEvasions)"
+        totalEvasionsLabel.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.37)
+        totalEvasionsLabel.textAlignment = NSTextAlignment.Center
+        totalEvasionsLabel.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        totalEvasionsLabel.textColor = UIColor.whiteColor()
+        self.view?.addSubview(totalEvasionsLabel)
+        
+        totalHitsLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 20))
+        totalHitsLabel.text = "Total Hits: \(totalHits)"
+        totalHitsLabel.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.44)
+        totalHitsLabel.textAlignment = NSTextAlignment.Center
+        totalHitsLabel.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        totalHitsLabel.textColor = UIColor.whiteColor()
+        self.view?.addSubview(totalHitsLabel)
+
+        shotsFiredLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 20))
+        shotsFiredLabel.text = "Shots Fired: \(shotsFired)"
+        shotsFiredLabel.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.51)
+        shotsFiredLabel.textAlignment = NSTextAlignment.Center
+        shotsFiredLabel.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        shotsFiredLabel.textColor = UIColor.whiteColor()
+        self.view?.addSubview(shotsFiredLabel)
+        
+        hitPercentLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 20))
+        hitPercentLabel.text = "Hit Percentage: \(hitPercent)%"
+        hitPercentLabel.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.58)
+        hitPercentLabel.textAlignment = NSTextAlignment.Center
+        hitPercentLabel.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        hitPercentLabel.textColor = UIColor.whiteColor()
+        self.view?.addSubview(hitPercentLabel)
+
+
+        
+        fromStatsPage = true
     }
     
     

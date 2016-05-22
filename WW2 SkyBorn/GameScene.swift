@@ -21,7 +21,7 @@ struct PhysicsCatagory {
     static let enemyMissile : UInt32 = 8
     static let scoreWall : UInt32 = 16
     static let ground : UInt32 = 32
-    static let ceiling : UInt32 = 33
+    static let ceiling : UInt32 = 64
    
 }
 
@@ -52,6 +52,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var fireBtn : UIButton!
     //array of highscores to be accessible in the StartScene
     var highscoresArr : [NSInteger] = [NSInteger](count: 10, repeatedValue: 0)
+    var shotsFired: Int!
+    var totalHits : Int!
+    var totalEvasions : Int!
+    var allTimeScore : Int!
+    var hitPercent : Double!
+    var localShots = Int()
    
     //endscene variables
     //button variables
@@ -183,7 +189,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let temp : SKTexture = chopperWalkingFrames[0]
         chopper = SKSpriteNode(texture: temp)
         chopper.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidX(self.frame))
-        addChild(chopper)
+       // addChild(chopper)
         
         spinChopper()
     
@@ -374,6 +380,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         missile.physicsBody?.dynamic = true
         missile.physicsBody?.usesPreciseCollisionDetection = true
         
+        localShots = localShots + 1
 
         self.addChild(missile)
         
@@ -483,6 +490,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //puts the actual array in the default under the listed key
         highscoreDefault.setValue(highscoresArr, forKey: "highscoresArr")
         
+        // gets stats from the default (except hitPercent)
+        shotsFired = highscoreDefault.valueForKey("shotsFired") as! Int
+        totalHits = highscoreDefault.valueForKey("totalHits") as! Int
+        totalEvasions = highscoreDefault.valueForKey("totalEvasions") as! Int
+        allTimeScore = highscoreDefault.valueForKey("allTimeScore") as! Int
+        
+        //adds current game stats to all time stats
+        shotsFired = shotsFired + localShots
+        totalHits = totalHits + hitCounter
+        totalEvasions = totalEvasions + score
+        allTimeScore = allTimeScore + totalScore
+        
+        if(shotsFired==0){
+            hitPercent = 0.00
+        } else {
+            hitPercent = Double(totalHits) / Double(shotsFired)
+        }
+        
+        //stores updated all time stats in the default
+        highscoreDefault.setValue(shotsFired, forKey: "shotsFired")
+        highscoreDefault.setValue(totalHits, forKey: "totalHits")
+        highscoreDefault.setValue(totalEvasions, forKey: "totalEvasions")
+        highscoreDefault.setValue(allTimeScore, forKey: "allTimeScore")
+        highscoreDefault.setValue(hitPercent, forKey: "hitPercent")
+
         
         
         //adds total score label
