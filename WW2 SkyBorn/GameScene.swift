@@ -58,6 +58,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var allTimeScore : Int!
     var hitPercent : Double!
     var localShots = Int()
+    
    
     //endscene variables
     //button variables
@@ -138,23 +139,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //fireBtn = UIButton(frame: CGRect(x: 0, y: view.frame.height * 0.938 , width: 50, height: 35))
         //next 2 lines create a circle button
         fireBtn = UIButton(type: .Custom)
-        fireBtn.frame = CGRectMake(0, view.frame.height * 0.91, 50, 50)
+        fireBtn.frame = CGRectMake(0, view.frame.height * 0.81, 100, 100)
         fireBtn.layer.cornerRadius = 0.5 * fireBtn.bounds.size.width
         fireBtn.setTitle("Fire", forState: UIControlState.Normal)
         fireBtn.titleLabel?.textAlignment = NSTextAlignment.Center
-        fireBtn.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
+        fireBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         fireBtn.addTarget(self, action: #selector(GameScene.spawnUserMissile), forControlEvents: UIControlEvents.TouchUpInside)
         fireBtn.layer.borderWidth = 2
         fireBtn.layer.borderColor = UIColor.whiteColor().CGColor
         fireBtn.backgroundColor = UIColor.lightTextColor()
-        fireBtn.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        fireBtn.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 40)
         fireBtn.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
         
         self.view?.addSubview(fireBtn)
         self.fireBtn.enabled = false
         fireBtn.userInteractionEnabled = false
         //allows the fire button to be pushed every half second
-        NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(GameScene.enableFireBtn), userInfo: nil, repeats: true)
+        NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(GameScene.enableFireBtn), userInfo: nil, repeats: true)
         
         // Load the TextureAtlas for the chopper blades
         let chopperAnimatedAtlas : SKTextureAtlas = SKTextureAtlas(named: "Chopper")
@@ -244,7 +245,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // DO NOTHING
     }
     
-    func explode() {
+    func explode(){
         
     }
     
@@ -511,7 +512,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if(shotsFired==0){
             hitPercent = 0.00
         } else {
-            hitPercent = Double(totalHits) / Double(shotsFired)
+            hitPercent = Double(totalHits) / Double(shotsFired) * 100
         }
         
         //stores updated all time stats in the default
@@ -597,8 +598,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if let scene = GameScene(fileNamed:"GameScene") {
             // Configure the view.
             let skView = self.view as SKView!
-            skView.showsFPS = true
-            skView.showsNodeCount = true
+            skView.showsFPS = false
+            skView.showsNodeCount = false
             
             /* Sprite Kit applies additional optimizations to improve rendering performance */
             skView.ignoresSiblingOrder = true
@@ -624,8 +625,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if let scene = StartScene(fileNamed:"GameScene") {
             // Configure the view.
             let skView = self.view as SKView!
-            skView.showsFPS = true
-            skView.showsNodeCount = true
+            skView.showsFPS = false
+            skView.showsNodeCount = false
             
             /* Sprite Kit applies additional optimizations to improve rendering performance */
             skView.ignoresSiblingOrder = true
