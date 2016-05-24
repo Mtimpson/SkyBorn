@@ -376,7 +376,7 @@ class StartScene: SKScene  {
         self.view?.addSubview(totalEvasionsLabel)
         
         totalHitsLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 20))
-        totalHitsLabel.text = "Total Hits: \(totalHits)"
+        totalHitsLabel.text = "Total Hits: \(totalHits / 10)"
         totalHitsLabel.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.44)
         totalHitsLabel.textAlignment = NSTextAlignment.Center
         totalHitsLabel.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
@@ -392,7 +392,7 @@ class StartScene: SKScene  {
         self.view?.addSubview(shotsFiredLabel)
         
         hitPercentLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 20))
-        hitPercentLabel.text = "Hit Percentage: \(hitPercent)%"
+        hitPercentLabel.text = String(NSString(format: "Hit Percentage: %.2f%%", hitPercent))
         hitPercentLabel.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.58)
         hitPercentLabel.textAlignment = NSTextAlignment.Center
         hitPercentLabel.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
