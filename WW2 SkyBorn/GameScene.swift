@@ -120,7 +120,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(scoreWall)
         
         //label to track number of enemy objects avoided
-        scoreLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 20))
+        scoreLabel = UILabel(frame: CGRect(x: 5, y: 0, width: 100, height: 20))
         scoreLabel.text = "Evasions: \(score)"
         scoreLabel.font = UIFont(name: "AvenirNextCondensed-Bold", size: 15)
         scoreLabel.textColor = UIColor.whiteColor()
@@ -139,7 +139,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //fireBtn = UIButton(frame: CGRect(x: 0, y: view.frame.height * 0.938 , width: 50, height: 35))
         //next 2 lines create a circle button
         fireBtn = UIButton(type: .Custom)
-        fireBtn.frame = CGRectMake(0, view.frame.height * 0.81, 100, 100)
+        fireBtn.frame = CGRectMake(10, view.frame.height * 0.81, 100, 100)
         fireBtn.layer.cornerRadius = 0.5 * fireBtn.bounds.size.width
         fireBtn.setTitle("Fire", forState: UIControlState.Normal)
         fireBtn.titleLabel?.textAlignment = NSTextAlignment.Center
@@ -235,7 +235,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         start = UIButton((frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 10)))
         start.center = CGPoint(x: view.center.x, y: view.center.y - 15)
         start.setTitle("Press to Start!", forState: UIControlState.Normal)
-        start.titleLabel!.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        start.titleLabel!.font = UIFont(name: "AvenirNextCondensed-Bold", size: 30)
         start.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         start.addTarget(self, action: #selector(GameScene.startPressed), forControlEvents: UIControlEvents.TouchUpInside)
         self.view?.addSubview(start)
@@ -327,7 +327,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         enemyMig.removeFromParent()
         userMissile.removeFromParent()
         NSLog("Destoryed mig")
-        hitCounter += 1
+        hitCounter += 10
         hitLabel.text = "Hits: \(hitCounter)"
     }
     //call when f-40 missile collides with mig missile
@@ -335,7 +335,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         userMissile.removeFromParent()
         enemyMissile.removeFromParent()
         NSLog("missile on missile")
-        hitCounter += 1
+        hitCounter += 10
         hitLabel.text = "Hits: \(hitCounter)"
     }
     //call when enemy missile hits our f-40
@@ -405,14 +405,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Load the enemy Mig 21
         enemyMig = SKSpriteNode(imageNamed: "MiG-21-Clean")
         //Set size of the Mig
-        enemyMig.size = CGSize(width: 72, height: 85)
+        enemyMig.size = CGSize(width: 77, height: 92)
         //1.5 = 3/4 of Screen, 1.75 = Barely on Screen, 2.0 = Off the screen
         enemyMig.position = CGPoint(x: self.frame.width-200, y: CGFloat(arc4random_uniform(UInt32(height * 0.8)) + UInt32(height * 0.1)))
         enemyMig.zPosition = 1
         //Add the enemy mig to the screen.
         enemyMigs.addChild(enemyMig)
         
-        enemyMig.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(10, 5))
+        enemyMig.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(14, 7))
         enemyMig.physicsBody?.categoryBitMask = PhysicsCatagory.enemyMig
         enemyMig.physicsBody?.collisionBitMask = PhysicsCatagory.userMissile | PhysicsCatagory.f_40 | PhysicsCatagory.scoreWall
         enemyMig.physicsBody?.contactTestBitMask = PhysicsCatagory.userMissile | PhysicsCatagory.f_40 | PhysicsCatagory.scoreWall
