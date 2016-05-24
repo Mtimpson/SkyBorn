@@ -244,6 +244,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // DO NOTHING
     }
     
+    func explode() {
+        
+    }
+    
     func spinChopper() {
         // General runAction method to make the chopper blades spin.
         f_40.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(chopperWalkingFrames, timePerFrame: 0.1, resize: false, restore: true)))
