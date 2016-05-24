@@ -405,8 +405,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         enemyMig = SKSpriteNode(imageNamed: "MiG-21-Clean")
         //Set size of the Mig
         enemyMig.size = CGSize(width: 72, height: 85)
-        //1.5 = 3/4 of Screen, 1.75 = Barley on Screen, 2.0 = Off the screen
-        enemyMig.position = CGPoint(x: self.frame.width-200, y: CGFloat(arc4random()) % height)
+        //1.5 = 3/4 of Screen, 1.75 = Barely on Screen, 2.0 = Off the screen
+        enemyMig.position = CGPoint(x: self.frame.width-200, y: CGFloat(arc4random_uniform(UInt32(height * 0.8)) + UInt32(height * 0.1)))
         enemyMig.zPosition = 1
         //Add the enemy mig to the screen.
         enemyMigs.addChild(enemyMig)
