@@ -1,7 +1,7 @@
 //
 //  GameScene.swift
 //  WW2 SkyBorn
-//  Version 0.1
+//  Version 1.0
 //
 //  Created by Michael Timpson and Matthew Creel on 5/5/16.
 //  Copyright (c) 2016 newBorn Software Development Company. All rights reserved.
@@ -108,7 +108,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //invisible wall at the x coordinate of the user, when enemy objects pass thru it score will increase
         scoreWall = SKShapeNode(rectOfSize: CGSizeMake(5, self.frame.height * 2))
         scoreWall.fillColor = UIColor.whiteColor()
-        scoreWall.position = CGPoint(x: self.frame.width / 2.5, y: 0)
+        scoreWall.position = CGPoint(x: self.frame.width / 2.75, y: 0)
         scoreWall.zPosition = -10
         scoreWall.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 5, height: self.frame.height * 2))
         scoreWall.physicsBody?.categoryBitMask = PhysicsCatagory.scoreWall
@@ -136,12 +136,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.view?.addSubview(hitLabel)
         
         
-        //adds a fire button spawning a missile
-        //for rectangle button
-        //fireBtn = UIButton(frame: CGRect(x: 0, y: view.frame.height * 0.938 , width: 50, height: 35))
-        //next 2 lines create a circle button
+        // Fire button
         fireBtn = UIButton(type: .Custom)
-        fireBtn.frame = CGRectMake(10, view.frame.height * 0.81, 100, 100)
+        fireBtn.frame = CGRectMake(10, view.frame.height - 10 - 100, 100, 100)
         fireBtn.layer.cornerRadius = 0.5 * fireBtn.bounds.size.width
         fireBtn.setTitle("Fire", forState: UIControlState.Normal)
         fireBtn.titleLabel?.textAlignment = NSTextAlignment.Center
@@ -186,7 +183,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Spawn in your f_40 plane at the left middle of the screen!
         //f_40 = SKSpriteNode(imageNamed:"chopper1")
         f_40.size = CGSize(width: 90, height: 20)
-        f_40.position = CGPoint(x: self.frame.width / 2.5, y: self.frame.height / 2)
+        f_40.position = CGPoint(x: self.frame.width / 2.75, y: self.frame.height / 2)
         f_40.zPosition = 1
         f_40.physicsBody = SKPhysicsBody(rectangleOfSize: f_40.size)
         f_40.physicsBody?.categoryBitMask = PhysicsCatagory.f_40
@@ -407,9 +404,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Load the enemy Mig 21
         enemyMig = SKSpriteNode(imageNamed: "MiG-21-Clean")
         //Set size of the Mig
-        enemyMig.size = CGSize(width: 77, height: 92)
+        enemyMig.size = CGSize(width: 77, height: 100)
         //1.5 = 3/4 of Screen, 1.75 = Barely on Screen, 2.0 = Off the screen
-        enemyMig.position = CGPoint(x: self.frame.width-200, y: CGFloat(arc4random_uniform(UInt32(height * 0.8)) + UInt32(height * 0.1)))
+        enemyMig.position = CGPoint(x: self.frame.width + 10, y: CGFloat(arc4random_uniform(UInt32(height * 0.8)) + UInt32(height * 0.1)))
         enemyMig.zPosition = 1
         //Add the enemy mig to the screen.
         enemyMigs.addChild(enemyMig)
