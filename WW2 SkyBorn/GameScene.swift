@@ -29,6 +29,8 @@ struct PhysicsCatagory {
 class GameScene: SKScene, SKPhysicsContactDelegate {
     var started = false
     
+    var avgScore : Int!
+    var totalGames : Int!
     var hitCounter = Int()
     var score = Int()
     var f_40 = SKSpriteNode()
@@ -412,7 +414,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Add the enemy mig to the screen.
         enemyMigs.addChild(enemyMig)
         
-        enemyMig.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(14, 7))
+        enemyMig.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(7, 2))
         enemyMig.physicsBody?.categoryBitMask = PhysicsCatagory.enemyMig
         enemyMig.physicsBody?.collisionBitMask = PhysicsCatagory.userMissile | PhysicsCatagory.f_40 | PhysicsCatagory.scoreWall
         enemyMig.physicsBody?.contactTestBitMask = PhysicsCatagory.userMissile | PhysicsCatagory.f_40 | PhysicsCatagory.scoreWall
@@ -497,17 +499,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //puts the actual array in the default under the listed key
         highscoreDefault.setValue(highscoresArr, forKey: "highscoresArr")
         
-        // gets stats from the default (except hitPercent)
+        // gets stats from the default (except hitPercent and avgScore)
         shotsFired = highscoreDefault.valueForKey("shotsFired") as! Int
         totalHits = highscoreDefault.valueForKey("totalHits") as! Int
         totalEvasions = highscoreDefault.valueForKey("totalEvasions") as! Int
         allTimeScore = highscoreDefault.valueForKey("allTimeScore") as! Int
+        totalGames = highscoreDefault.valueForKey("totalGames") as! Int
         
         //adds current game stats to all time stats
         shotsFired = shotsFired + localShots
         totalHits = totalHits + hitCounter
         totalEvasions = totalEvasions + score
         allTimeScore = allTimeScore + totalScore
+        totalGames = totalGames + 1
+        
+        avgScore = allTimeScore / totalGames
         
         if(shotsFired==0){
             hitPercent = 0.00
@@ -521,12 +527,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         highscoreDefault.setValue(totalEvasions, forKey: "totalEvasions")
         highscoreDefault.setValue(allTimeScore, forKey: "allTimeScore")
         highscoreDefault.setValue(hitPercent, forKey: "hitPercent")
+        highscoreDefault.setValue(avgScore, forKey: "avgScore")
+        highscoreDefault.setValue(totalGames, forKey: "totalGames")
 
         
         
         //adds total score label
         total = UILabel((frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 30)))
-        total.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.23)
+        total.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.33)
         total.text = "Score: \(totalScore)"
         total.textAlignment = NSTextAlignment.Center
         total.font = UIFont(name: "AvenirNextCondensed-Bold", size: 25)
@@ -535,7 +543,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //adds a highscore label
         highscoreLabel = UILabel((frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 30)))
-        highscoreLabel.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.3)
+        highscoreLabel.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.4)
         highscoreLabel.text = "Highscore: \(highscoresArr[0])"
         highscoreLabel.textAlignment = NSTextAlignment.Center
         highscoreLabel.font = UIFont(name: "AvenirNextCondensed-Bold", size: 25)
@@ -546,7 +554,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //adds game over label
         gameOver = UILabel((frame: CGRect(x: 0, y: 0, width: 300, height: 60)))
-        gameOver.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.14)
+        gameOver.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.23)
         gameOver.text = "Game Over"
         gameOver.textAlignment = NSTextAlignment.Center
         gameOver.font = UIFont(name: "AvenirNextCondensed-Bold", size: 60)
@@ -555,7 +563,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //adds Restart button
         restart = UIButton(frame: CGRect(x: 0, y: 0, width: view!.frame.size.width / 2.5, height: 40))
-        restart.center = CGPoint(x: view!.frame.size.width / 2, y: view!.frame.size.height * 0.4)
+        restart.center = CGPoint(x: view!.frame.size.width / 2, y: view!.frame.size.height * 0.5)
         restart.setTitle("Restart", forState: UIControlState.Normal)
         restart.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         restart.addTarget(self, action: #selector(GameScene.Restart), forControlEvents: UIControlEvents.TouchUpInside)
@@ -569,7 +577,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //adds main menu button
         menu = UIButton(frame:CGRect(x: 0, y: 0, width: view!.frame.size.width / 2.5, height: 40))
-        menu.center = CGPoint(x: view!.frame.size.width / 2, y: view!.frame.size.height * 0.5)
+        menu.center = CGPoint(x: view!.frame.size.width / 2, y: view!.frame.size.height * 0.6)
         menu.setTitle("Main Menu", forState: UIControlState.Normal)
         menu.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         menu.addTarget(self, action: #selector (GameScene.mainMenu), forControlEvents: UIControlEvents.TouchUpInside)

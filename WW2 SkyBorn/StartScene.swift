@@ -25,7 +25,11 @@ class StartScene: SKScene  {
     var allTimeScore : Int!
     var totalEvasions : Int!
     var hitPercent : Double!
+    var avgScore : Int!
+    var totalGames : Int!
     var scoreTitles : UILabel!
+    var totalGamesLabel : UILabel!
+    var avgScoreLabel : UILabel!
     var labelY : CGFloat!
     var menu : UIButton!
     var labelArr : [UILabel] = [UILabel]()
@@ -37,6 +41,7 @@ class StartScene: SKScene  {
     var allTimeScoreLabel : UILabel!
     var totalEvasionsLabel : UILabel!
     var hitPercentLabel : UILabel!
+    
   
     
     override func didMoveToView(view: SKView) {
@@ -55,7 +60,7 @@ class StartScene: SKScene  {
                 print("App already launched : \(isAppAlreadyLaunchedOnce)")
                 
                 //uncomment the next line to reset stats or allow old device to get caught up without errors (make sure to comment the line out again after you run the app once)
-                //highscoresArr = [NSInteger](count: 10, repeatedValue: 0); shotsFired = 0; totalHits = 0; totalEvasions = 0; allTimeScore = 0; hitPercent = 0.00; highscoreDefault.setValue(highscoresArr, forKey: "highscoresArr"); highscoreDefault.setValue(shotsFired, forKey: "shotsFired"); highscoreDefault.setValue(totalHits, forKey: "totalHits"); highscoreDefault.setValue(totalEvasions, forKey: "totalEvasions"); highscoreDefault.setValue(allTimeScore, forKey: "allTimeScore"); highscoreDefault.setValue(hitPercent, forKey: "hitPercent")
+                //highscoresArr = [NSInteger](count: 10, repeatedValue: 0); shotsFired = 0; totalHits = 0; totalEvasions = 0; allTimeScore = 0; hitPercent = 0.00; highscoreDefault.setValue(highscoresArr, forKey: "highscoresArr"); highscoreDefault.setValue(shotsFired, forKey: "shotsFired"); highscoreDefault.setValue(totalHits, forKey: "totalHits"); highscoreDefault.setValue(totalEvasions, forKey: "totalEvasions"); highscoreDefault.setValue(allTimeScore, forKey: "allTimeScore"); highscoreDefault.setValue(hitPercent, forKey: "hitPercent"); totalGames = 0; avgScore = 0; highscoreDefault.setValue(avgScore, forKey: "avgScore"); highscoreDefault.setValue(totalGames, forKey: "totalGames")
 
                 highscoresArr = highscoreDefault.valueForKey("highscoresArr") as! [NSInteger]
                 shotsFired = highscoreDefault.valueForKey("shotsFired") as! Int
@@ -63,6 +68,9 @@ class StartScene: SKScene  {
                 allTimeScore = highscoreDefault.valueForKey("allTimeScore") as! Int
                 totalEvasions = highscoreDefault.valueForKey("totalEvasions") as! Int
                 hitPercent = highscoreDefault.valueForKey("hitPercent") as! Double
+                totalGames = highscoreDefault.valueForKey("totalGames") as! Int
+                avgScore = highscoreDefault.valueForKey("avgScore") as! Int
+                
                 return true
                 
             } else {
@@ -72,6 +80,10 @@ class StartScene: SKScene  {
                 totalEvasions = 0
                 allTimeScore = 0
                 hitPercent = 0.00
+                totalGames = 0
+                avgScore = 0
+                highscoreDefault.setValue(avgScore, forKey: "avgScore")
+                highscoreDefault.setValue(totalGames, forKey: "totalGames")
                 highscoreDefault.setValue(highscoresArr, forKey: "highscoresArr")
                 highscoreDefault.setValue(shotsFired, forKey: "shotsFired")
                 highscoreDefault.setValue(totalHits, forKey: "totalHits")
@@ -304,6 +316,8 @@ class StartScene: SKScene  {
             hitPercentLabel.removeFromSuperview()
             totalEvasionsLabel.removeFromSuperview()
             totalHitsLabel.removeFromSuperview()
+            totalGamesLabel.removeFromSuperview()
+            avgScoreLabel.removeFromSuperview()
         }
         
         //sets from___page booleans to false
@@ -338,7 +352,7 @@ class StartScene: SKScene  {
         
         //adds main menu button
         menu = UIButton(frame:CGRect(x: 0, y: 0, width: view!.frame.size.width / 2.5, height: 40))
-        menu.center = CGPoint(x: view!.frame.size.width / 2, y: view!.frame.size.height * 0.8)
+        menu.center = CGPoint(x: view!.frame.size.width / 2, y: view!.frame.size.height * 0.84)
         menu.setTitle("Main Menu", forState: UIControlState.Normal)
         menu.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         menu.addTarget(self, action: #selector (GameScene.mainMenu), forControlEvents: UIControlEvents.TouchUpInside)
@@ -398,6 +412,22 @@ class StartScene: SKScene  {
         hitPercentLabel.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
         hitPercentLabel.textColor = UIColor.whiteColor()
         self.view?.addSubview(hitPercentLabel)
+        
+        totalGamesLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 20))
+        totalGamesLabel.text = "Games Played: \(totalGames)"
+        totalGamesLabel.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.65)
+        totalGamesLabel.textAlignment = NSTextAlignment.Center
+        totalGamesLabel.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        totalGamesLabel.textColor = UIColor.whiteColor()
+        self.view?.addSubview(totalGamesLabel)
+        
+        avgScoreLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 20))
+        avgScoreLabel.text = "Average Score Per Game: \(avgScore)"
+        avgScoreLabel.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.72)
+        avgScoreLabel.textAlignment = NSTextAlignment.Center
+        avgScoreLabel.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        avgScoreLabel.textColor = UIColor.whiteColor()
+        self.view?.addSubview(avgScoreLabel)
 
 
         
