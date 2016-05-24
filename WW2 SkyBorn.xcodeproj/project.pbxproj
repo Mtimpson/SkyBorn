@@ -17,7 +17,6 @@
 		4C9B57AE1CDBEF0400D3EF28 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C9B57AC1CDBEF0400D3EF28 /* LaunchScreen.storyboard */; };
 		4C9B57B91CDBEF0400D3EF28 /* WW2_SkyBornTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9B57B81CDBEF0400D3EF28 /* WW2_SkyBornTests.swift */; };
 		4C9B57C41CDBEF0400D3EF28 /* WW2_SkyBornUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9B57C31CDBEF0400D3EF28 /* WW2_SkyBornUITests.swift */; };
-		C9AEF32A1CE1A114009A7968 /* EndScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AEF3291CE1A114009A7968 /* EndScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +53,6 @@
 		4C9B57BF1CDBEF0400D3EF28 /* WW2 SkyBornUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WW2 SkyBornUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C9B57C31CDBEF0400D3EF28 /* WW2_SkyBornUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WW2_SkyBornUITests.swift; sourceTree = "<group>"; };
 		4C9B57C51CDBEF0400D3EF28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C9AEF3291CE1A114009A7968 /* EndScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +107,6 @@
 				4C9B57A11CDBEF0400D3EF28 /* GameScene.sks */,
 				4C8FA8C61CE16D0600C9D08D /* StartScene.swift */,
 				4C9B57A31CDBEF0400D3EF28 /* GameScene.swift */,
-				C9AEF3291CE1A114009A7968 /* EndScene.swift */,
 				4C9B57A51CDBEF0400D3EF28 /* GameViewController.swift */,
 				4C9B57A71CDBEF0400D3EF28 /* Main.storyboard */,
 				4C9B57AA1CDBEF0400D3EF28 /* Assets.xcassets */,
@@ -273,7 +270,6 @@
 				4C9B57A61CDBEF0400D3EF28 /* GameViewController.swift in Sources */,
 				4C9B57A01CDBEF0400D3EF28 /* AppDelegate.swift in Sources */,
 				4C8FA8C71CE16D0600C9D08D /* StartScene.swift in Sources */,
-				C9AEF32A1CE1A114009A7968 /* EndScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
