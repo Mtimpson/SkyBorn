@@ -152,9 +152,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.view?.addSubview(fireBtn)
         self.fireBtn.enabled = false
-        fireBtn.enabled = false
+        fireBtn.userInteractionEnabled = false
         //allows the fire button to be pushed every half second
-        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(GameScene.enableFireBtn), userInfo: nil, repeats: true)
+        NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(GameScene.enableFireBtn), userInfo: nil, repeats: true)
         
         // Load the TextureAtlas for the chopper blades
         let chopperAnimatedAtlas : SKTextureAtlas = SKTextureAtlas(named: "Chopper")
@@ -683,8 +683,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if touchingScreen {
             f_40.physicsBody?.velocity = CGVector(dx: 0, dy: 140)
         }
-        if moveBackground == true{
+        if (moveBackground == true) {
             // 4 controls the speed below
+            
+            //enable the fire button
+            fireBtn.userInteractionEnabled = true
             
             bground.position = CGPoint(x: bground.position.x-6 , y: bground.position.y)
             bground2.position = CGPoint(x: bground2.position.x-6, y: bground2.position.y)

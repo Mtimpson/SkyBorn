@@ -47,12 +47,16 @@ class StartScene: SKScene  {
         //creates a defualt able to access the array of highscores we stored
         let highscoreDefault = NSUserDefaults.standardUserDefaults()
         
-        //checks to see if the app has been launched before. If so, it pulls the array of high scores and if not, it creates an array of high scores. Prevents errors 
+        //checks to see if the app has been launched before. If so, it pulls the all stats from the default and if not, it sets all stats = 0 and places it in the default
         func isAppAlreadyLaunchedOnce()->Bool{
             let defaults = NSUserDefaults.standardUserDefaults()
             
             if let isAppAlreadyLaunchedOnce = defaults.stringForKey("isAppAlreadyLaunchedOnce"){
                 print("App already launched : \(isAppAlreadyLaunchedOnce)")
+                
+                //uncomment the next line to reset stats or allow old device to get caught up without errors (make sure to comment the line out again after you run the app once)
+                //highscoresArr = [NSInteger](count: 10, repeatedValue: 0); shotsFired = 0; totalHits = 0; totalEvasions = 0; allTimeScore = 0; hitPercent = 0.00; highscoreDefault.setValue(highscoresArr, forKey: "highscoresArr"); highscoreDefault.setValue(shotsFired, forKey: "shotsFired"); highscoreDefault.setValue(totalHits, forKey: "totalHits"); highscoreDefault.setValue(totalEvasions, forKey: "totalEvasions"); highscoreDefault.setValue(allTimeScore, forKey: "allTimeScore"); highscoreDefault.setValue(hitPercent, forKey: "hitPercent")
+
                 highscoresArr = highscoreDefault.valueForKey("highscoresArr") as! [NSInteger]
                 shotsFired = highscoreDefault.valueForKey("shotsFired") as! Int
                 totalHits = highscoreDefault.valueForKey("totalHits") as! Int
@@ -60,7 +64,8 @@ class StartScene: SKScene  {
                 totalEvasions = highscoreDefault.valueForKey("totalEvasions") as! Int
                 hitPercent = highscoreDefault.valueForKey("hitPercent") as! Double
                 return true
-            }else{
+                
+            } else {
                 highscoresArr = [NSInteger](count: 10, repeatedValue: 0)
                 shotsFired = 0
                 totalHits = 0
