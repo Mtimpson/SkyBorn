@@ -10,7 +10,11 @@
 import SpriteKit
 
 var chopper : SKSpriteNode!
+var explosion : SKSpriteNode!
+
 var chopperWalkingFrames: [SKTexture]!
+var explosionWalkingFrames: [SKTexture]!
+
 
 // Added the physics structure Catagory..
 // Phsics structure catagory.. EP1 Flappy
@@ -34,6 +38,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var hitCounter = Int()
     var score = Int()
     var f_40 = SKSpriteNode()
+    var explosion = SKSpriteNode()
     var bground = SKSpriteNode()
     var bground2 = SKSpriteNode()
     var text1 = SKTexture()
@@ -178,6 +183,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         spinChopper()
         
         self.addChild(f_40)
+        
+        // Load the TextureAtlas for the explosion
+        let explosionAnimatedAtlas : SKTextureAtlas = SKTextureAtlas(named: "Explosion")
+        
+        // Load the animation frames from the TextureAtlas
+        var explosionFrames = [SKTexture]();
+        let numOfImages : Int = explosionAnimatedAtlas.textureNames.count
+        for var i = 1; i <= numOfImages; i += 1 {
+            let explosionTextureName = "explosion\(i)"
+            explosionFrames.append(explosionAnimatedAtlas.textureNamed(explosionTextureName))
+        }
+        
+        explosionWalkingFrames = explosionFrames
+        
+        //Create Explosion Sprite, Setup Position in the middle of the screen, add to Scene
+        //let temp2 : SKTexture = explosionWalkingFrames[0]
+        //explosion = SKSpriteNode(texture: temp2)
+        //explosion.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidX(self.frame))
+        
+        explode()
+        
+        self.addChild(explosion)
+
        
         
         // Spawn in your f_40 plane at the left middle of the screen!
@@ -193,10 +221,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         f_40.physicsBody?.affectedByGravity = false
         f_40.physicsBody?.dynamic = true
         f_40.physicsBody?.usesPreciseCollisionDetection = true
-        
-        
-        
-        
         
                 
         //makes 2 backgrounds for the illusion of movement
@@ -245,6 +269,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func explode(){
+        // General runAction method to make explosions occur
+        let Explode = (SKAction.repeatAction(SKAction.animateWithTextures(explosionWalkingFrames, timePerFrame: 0.07), count: 1))
+        let finished = SKAction.removeFromParent()
+        explosion.runAction(SKAction.sequence([Explode, finished]))
         
     }
     
@@ -260,11 +288,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //thing 2 in a collision
         let body2 : SKPhysicsBody = contact.bodyB
         
+        let contactPos = contact.contactPoint
+        
         //check for f40 missile hitting a mig
         if((body1.categoryBitMask == PhysicsCatagory.enemyMig) && (body2.categoryBitMask == PhysicsCatagory.userMissile) || (body1.categoryBitMask == PhysicsCatagory.userMissile) && (body2.categoryBitMask == PhysicsCatagory.enemyMig)){
             
             if(body1.node != nil && body2.node != nil) {
                 migAndMissile(body1.node as! SKSpriteNode, userMissile: body2.node as! SKSpriteNode)
+                
+                let temp2 : SKTexture = explosionWalkingFrames[0]
+                explosion = SKSpriteNode(texture: temp2)
+                explosion.position = (contactPos)
+                
+                explode()
+                
+                self.addChild(explosion)
             }
         }
         
@@ -273,6 +311,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             if(body1.node != nil && body2.node != nil) {
                 missileAndMissile(body1.node as! SKSpriteNode, enemyMissile: body2.node as! SKSpriteNode)
+                
+                let temp2 : SKTexture = explosionWalkingFrames[0]
+                explosion = SKSpriteNode(texture: temp2)
+                explosion.position = (contactPos)
+                
+                explode()
+                
+                self.addChild(explosion)
             }
             
         }
@@ -282,6 +328,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             if(body1.node != nil && body2.node != nil) {
                 f40AndMissile(body1.node as! SKSpriteNode, enemyMissile: body2.node as! SKSpriteNode)
+                
+                let temp2 : SKTexture = explosionWalkingFrames[0]
+                explosion = SKSpriteNode(texture: temp2)
+                explosion.position = (contactPos)
+                
+                explode()
+                
+                self.addChild(explosion)
             }
             
         }
@@ -291,6 +345,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             if(body1.node != nil && body2.node != nil) {
                 f40AndMig(body1.node as! SKSpriteNode, enemyMig: body2.node as! SKSpriteNode)
+                
+                let temp2 : SKTexture = explosionWalkingFrames[0]
+                explosion = SKSpriteNode(texture: temp2)
+                explosion.position = (contactPos)
+                
+                explode()
+                
+                self.addChild(explosion)
             }
         }
         
@@ -308,12 +370,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if((body1.categoryBitMask == PhysicsCatagory.ground) && (body2.categoryBitMask == PhysicsCatagory.f_40) || (body1.categoryBitMask == PhysicsCatagory.f_40) && (body2.categoryBitMask == PhysicsCatagory.ground)){
             
             hitGround()
+            
+            let temp2 : SKTexture = explosionWalkingFrames[0]
+            explosion = SKSpriteNode(texture: temp2)
+            explosion.position = (contactPos)
+            
+            explode()
+            
+            self.addChild(explosion)
         }
         
         //check for flying above the screen
         if((body1.categoryBitMask == PhysicsCatagory.ceiling) && (body2.categoryBitMask == PhysicsCatagory.f_40) || (body1.categoryBitMask == PhysicsCatagory.f_40) && (body2.categoryBitMask == PhysicsCatagory.ceiling)){
             
             hitCeiling()
+            
+            let temp2 : SKTexture = explosionWalkingFrames[0]
+            explosion = SKSpriteNode(texture: temp2)
+            explosion.position = (contactPos)
+            
+            explode()
+            
+            self.addChild(explosion)
         }
 
 
