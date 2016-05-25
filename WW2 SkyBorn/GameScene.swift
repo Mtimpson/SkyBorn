@@ -32,6 +32,7 @@ struct PhysicsCatagory {
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     var started = false
+    var finished = false
     
     var avgScore : Int!
     var totalGames : Int!
@@ -464,7 +465,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let doneMoving = SKAction.removeFromParent()
         missile.runAction(SKAction.sequence([horizontalMove, doneMoving]))
     
-        missile.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(7, 2))
+        missile.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(15, 5))
         missile.physicsBody?.categoryBitMask = PhysicsCatagory.userMissile
         missile.physicsBody?.collisionBitMask = 0
         missile.physicsBody?.contactTestBitMask = PhysicsCatagory.enemyMig | PhysicsCatagory.enemyMissile
@@ -492,12 +493,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Set size of the Mig
         enemyMig.size = CGSize(width: 77, height: 100)
         //1.5 = 3/4 of Screen, 1.75 = Barely on Screen, 2.0 = Off the screen
-        enemyMig.position = CGPoint(x: self.frame.width + 10, y: CGFloat(arc4random_uniform(UInt32(height * 0.8)) + UInt32(height * 0.1)))
+        enemyMig.position = CGPoint(x: self.frame.width - 10, y: CGFloat(arc4random_uniform(UInt32(height * 0.8)) + UInt32(height * 0.1)))
         enemyMig.zPosition = 1
         //Add the enemy mig to the screen.
         enemyMigs.addChild(enemyMig)
         
-        enemyMig.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(7, 2))
+        enemyMig.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(21, 7))
         enemyMig.physicsBody?.categoryBitMask = PhysicsCatagory.enemyMig
         enemyMig.physicsBody?.collisionBitMask = PhysicsCatagory.userMissile | PhysicsCatagory.f_40 | PhysicsCatagory.scoreWall
         enemyMig.physicsBody?.contactTestBitMask = PhysicsCatagory.userMissile | PhysicsCatagory.f_40 | PhysicsCatagory.scoreWall
@@ -526,8 +527,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         enemyMissile = SKSpriteNode(imageNamed: "enemyMissile")
         enemyMissile.zPosition = 1
         enemyMissile.position = CGPointMake(enemyMig.position.x, enemyMig.position.y)
-        enemyMissile.size.height = 150
-        enemyMissile.size.width = 80
+        enemyMissile.size.height = 200
+        enemyMissile.size.width = 110
         //moves the missile. last arg controls the speed (lower = faster)
         let enemyFire = SKAction.moveByX(-self.size.width, y: 0, duration: 2)
         //deletes red missile once off screen
@@ -550,6 +551,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //called when the user loses
     func endGame(){
         moveBackground = false
+        finished = true
         
         scoreWall.removeFromParent()
         fireBtn.removeFromSuperview()
@@ -601,7 +603,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if(shotsFired==0){
             hitPercent = 0.00
         } else {
-            hitPercent = Double(totalHits) / Double(shotsFired) * 100
+            hitPercent = Double(totalHits / 10) / Double(shotsFired) * 100
         }
         
         //stores updated all time stats in the default
@@ -617,7 +619,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //adds total score label
         total = UILabel((frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 30)))
-        total.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.33)
+        total.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.32)
         total.text = "Score: \(totalScore)"
         total.textAlignment = NSTextAlignment.Center
         total.font = UIFont(name: "AvenirNextCondensed-Bold", size: 25)
@@ -626,7 +628,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //adds a highscore label
         highscoreLabel = UILabel((frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 30)))
-        highscoreLabel.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.4)
+        highscoreLabel.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.38)
         highscoreLabel.text = "Highscore: \(highscoresArr[0])"
         highscoreLabel.textAlignment = NSTextAlignment.Center
         highscoreLabel.font = UIFont(name: "AvenirNextCondensed-Bold", size: 25)
@@ -637,7 +639,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //adds game over label
         gameOver = UILabel((frame: CGRect(x: 0, y: 0, width: 300, height: 60)))
-        gameOver.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.23)
+        gameOver.center = CGPoint(x: view!.center.x, y: view!.frame.size.height * 0.2)
         gameOver.text = "Game Over"
         gameOver.textAlignment = NSTextAlignment.Center
         gameOver.font = UIFont(name: "AvenirNextCondensed-Bold", size: 60)
@@ -645,7 +647,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.view?.addSubview(gameOver)
         
         //adds Restart button
-        restart = UIButton(frame: CGRect(x: 0, y: 0, width: view!.frame.size.width / 2.5, height: 40))
+        restart = UIButton(frame: CGRect(x: 0, y: 0, width: view!.frame.size.width / 2, height: view!.frame.size.height / 10))
         restart.center = CGPoint(x: view!.frame.size.width / 2, y: view!.frame.size.height * 0.5)
         restart.setTitle("Restart", forState: UIControlState.Normal)
         restart.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
@@ -653,21 +655,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         restart.layer.borderWidth = 1
         restart.layer.borderColor = UIColor.whiteColor().CGColor
         restart.backgroundColor = UIColor.lightTextColor()
-        restart.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        restart.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 25)
         //changes text color when pushed
         restart.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
         self.view?.addSubview(restart)
         
         //adds main menu button
-        menu = UIButton(frame:CGRect(x: 0, y: 0, width: view!.frame.size.width / 2.5, height: 40))
-        menu.center = CGPoint(x: view!.frame.size.width / 2, y: view!.frame.size.height * 0.6)
+        menu = UIButton(frame:CGRect(x: 0, y: 0, width: view!.frame.size.width / 2, height: view!.frame.size.height / 10))
+        menu.center = CGPoint(x: view!.frame.size.width / 2, y: view!.frame.size.height * 0.65)
         menu.setTitle("Main Menu", forState: UIControlState.Normal)
         menu.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         menu.addTarget(self, action: #selector (GameScene.mainMenu), forControlEvents: UIControlEvents.TouchUpInside)
         menu.layer.borderWidth = 1
         menu.layer.borderColor = UIColor.whiteColor().CGColor
         menu.backgroundColor = UIColor.lightTextColor()
-        menu.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        menu.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 25)
         //changes text color when pushed
         menu.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
 
@@ -779,7 +781,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if touchingScreen {
             f_40.physicsBody?.velocity = CGVector(dx: 0, dy: 140)
         }
-        if (moveBackground == true) {
+        if (moveBackground == true && finished == false) {
             // 4 controls the speed below
             
             //enable the fire button

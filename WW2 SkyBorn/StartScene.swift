@@ -119,7 +119,7 @@ class StartScene: SKScene  {
     
         
         //adds play button
-        playBtn = UIButton(frame: CGRect(x: 0, y: 0, width: view.frame.size.width / 2.5, height: 40))
+        playBtn = UIButton(frame: CGRect(x: 0, y: 0, width: view.frame.size.width / 2, height: view.frame.size.height / 10))
         playBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.4)
         playBtn.setTitle("Play", forState: UIControlState.Normal)
         playBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
@@ -128,7 +128,7 @@ class StartScene: SKScene  {
         playBtn.layer.borderWidth = 1
         playBtn.layer.borderColor = UIColor.whiteColor().CGColor
         playBtn.backgroundColor = UIColor.lightTextColor()
-        playBtn.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        playBtn.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 25)
         //changes text color when pushed
         playBtn.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
 
@@ -136,8 +136,8 @@ class StartScene: SKScene  {
         
         
         //adds high scores button
-        scoresBtn = UIButton(frame: CGRect(x: 0, y: 0, width: view.frame.size.width / 2.5, height: 40))
-        scoresBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.5)
+        scoresBtn = UIButton(frame: CGRect(x: 0, y: 0, width: view.frame.size.width / 2, height: view.frame.size.height / 10))
+        scoresBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.55)
         scoresBtn.setTitle("High Scores", forState: UIControlState.Normal)
         scoresBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         scoresBtn.addTarget(self, action: #selector(StartScene.highscoreLabels), forControlEvents:
@@ -145,15 +145,15 @@ class StartScene: SKScene  {
         scoresBtn.layer.borderWidth = 1
         scoresBtn.layer.borderColor = UIColor.whiteColor().CGColor
         scoresBtn.backgroundColor = UIColor.lightTextColor()
-        scoresBtn.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        scoresBtn.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 25)
         //changes text color when pushed
         scoresBtn.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
         
          self.view?.addSubview(scoresBtn)
         
         //adds stats button
-        statsBtn = UIButton(frame: CGRect(x: 0, y: 0, width: view.frame.size.width / 2.5, height: 40))
-        statsBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.6)
+        statsBtn = UIButton(frame: CGRect(x: 0, y: 0, width: view.frame.size.width / 2, height: view.frame.size.height / 10))
+        statsBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.7)
         statsBtn.setTitle("Statistics", forState: UIControlState.Normal)
         statsBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         statsBtn.addTarget(self, action: #selector(StartScene.showStats), forControlEvents:
@@ -161,7 +161,7 @@ class StartScene: SKScene  {
         statsBtn.layer.borderWidth = 1
         statsBtn.layer.borderColor = UIColor.whiteColor().CGColor
         statsBtn.backgroundColor = UIColor.lightTextColor()
-        statsBtn.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        statsBtn.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 25)
         //changes text color when pushed
         statsBtn.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
 
@@ -242,15 +242,15 @@ class StartScene: SKScene  {
         }
         
         //adds main menu button
-        menu = UIButton(frame:CGRect(x: 0, y: 0, width: view!.frame.size.width / 2.5, height: 40))
-        menu.center = CGPoint(x: view!.frame.size.width / 2, y: view!.frame.size.height * 0.8)
+        menu = UIButton(frame:CGRect(x: 0, y: 0, width: view!.frame.size.width / 2, height: view!.frame.size.height / 10))
+        menu.center = CGPoint(x: view!.frame.size.width / 2, y: view!.frame.size.height * 0.85)
         menu.setTitle("Main Menu", forState: UIControlState.Normal)
         menu.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         menu.addTarget(self, action: #selector (GameScene.mainMenu), forControlEvents: UIControlEvents.TouchUpInside)
         menu.layer.borderWidth = 1
         menu.layer.borderColor = UIColor.whiteColor().CGColor
         menu.backgroundColor = UIColor.lightTextColor()
-        menu.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        menu.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 25)
         //changes text color when pushed
         menu.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
         self.view?.addSubview(menu)
@@ -351,7 +351,7 @@ class StartScene: SKScene  {
         statsBtn.removeFromSuperview()
         
         //adds main menu button
-        menu = UIButton(frame:CGRect(x: 0, y: 0, width: view!.frame.size.width / 2.5, height: 40))
+        menu = UIButton(frame:CGRect(x: 0, y: 0, width: view!.frame.size.width / 2, height: view!.frame.size.height / 10))
         menu.center = CGPoint(x: view!.frame.size.width / 2, y: view!.frame.size.height * 0.84)
         menu.setTitle("Main Menu", forState: UIControlState.Normal)
         menu.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
@@ -359,7 +359,7 @@ class StartScene: SKScene  {
         menu.layer.borderWidth = 1
         menu.layer.borderColor = UIColor.whiteColor().CGColor
         menu.backgroundColor = UIColor.lightTextColor()
-        menu.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 20)
+        menu.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 25)
         //changes text color when pushed
         menu.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
         self.view?.addSubview(menu)
