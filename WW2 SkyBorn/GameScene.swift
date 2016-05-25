@@ -263,27 +263,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //check for f40 missile hitting a mig
         if((body1.categoryBitMask == PhysicsCatagory.enemyMig) && (body2.categoryBitMask == PhysicsCatagory.userMissile) || (body1.categoryBitMask == PhysicsCatagory.userMissile) && (body2.categoryBitMask == PhysicsCatagory.enemyMig)){
             
-            migAndMissile(body1.node as! SKSpriteNode, userMissile: body2.node as! SKSpriteNode)
+            if(body1.node != nil && body2.node != nil) {
+                migAndMissile(body1.node as! SKSpriteNode, userMissile: body2.node as! SKSpriteNode)
+            }
         }
         
         //check for friendly missile hitting an enemy missile
         if((body1.categoryBitMask == PhysicsCatagory.userMissile) && (body2.categoryBitMask == PhysicsCatagory.enemyMissile) || (body1.categoryBitMask == PhysicsCatagory.enemyMissile) && (body2.categoryBitMask == PhysicsCatagory.userMissile)){
             
-            missileAndMissile(body1.node as! SKSpriteNode, enemyMissile: body2.node as! SKSpriteNode)
+            if(body1.node != nil && body2.node != nil) {
+                missileAndMissile(body1.node as! SKSpriteNode, enemyMissile: body2.node as! SKSpriteNode)
+            }
             
         }
         
         //check for the f40 being hit by enemy missile
         if((body1.categoryBitMask == PhysicsCatagory.f_40) && (body2.categoryBitMask == PhysicsCatagory.enemyMissile) || (body1.categoryBitMask == PhysicsCatagory.enemyMissile) && (body2.categoryBitMask == PhysicsCatagory.f_40)){
             
-            f40AndMissile(body1.node as! SKSpriteNode, enemyMissile: body2.node as! SKSpriteNode)
+            if(body1.node != nil && body2.node != nil) {
+                f40AndMissile(body1.node as! SKSpriteNode, enemyMissile: body2.node as! SKSpriteNode)
+            }
             
         }
         
         //check for f40 hitting mig
         if((body1.categoryBitMask == PhysicsCatagory.f_40) && (body2.categoryBitMask == PhysicsCatagory.enemyMig) || (body1.categoryBitMask == PhysicsCatagory.enemyMig) && (body2.categoryBitMask == PhysicsCatagory.f_40)){
             
-            f40AndMig(body1.node as! SKSpriteNode, enemyMig: body2.node as! SKSpriteNode)
+            if(body1.node != nil && body2.node != nil) {
+                f40AndMig(body1.node as! SKSpriteNode, enemyMig: body2.node as! SKSpriteNode)
+            }
         }
         
         //check for enemyMissile or mig passing the user
