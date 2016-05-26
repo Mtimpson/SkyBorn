@@ -17,6 +17,7 @@
 		4C9B57AE1CDBEF0400D3EF28 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C9B57AC1CDBEF0400D3EF28 /* LaunchScreen.storyboard */; };
 		4C9B57B91CDBEF0400D3EF28 /* WW2_SkyBornTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9B57B81CDBEF0400D3EF28 /* WW2_SkyBornTests.swift */; };
 		4C9B57C41CDBEF0400D3EF28 /* WW2_SkyBornUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9B57C31CDBEF0400D3EF28 /* WW2_SkyBornUITests.swift */; };
+		C914CDFE1CF79C0800CC1830 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C914CDFD1CF79C0800CC1830 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +39,7 @@
 
 /* Begin PBXFileReference section */
 		4C8FA8C61CE16D0600C9D08D /* StartScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScene.swift; sourceTree = "<group>"; };
-		4C9B579C1CDBEF0400D3EF28 /* WW2 SkyBorn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WW2 SkyBorn.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C9B579C1CDBEF0400D3EF28 /* SkyBorn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkyBorn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C9B579F1CDBEF0400D3EF28 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C9B57A11CDBEF0400D3EF28 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		4C9B57A31CDBEF0400D3EF28 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -47,12 +48,13 @@
 		4C9B57AA1CDBEF0400D3EF28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C9B57AD1CDBEF0400D3EF28 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4C9B57AF1CDBEF0400D3EF28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4C9B57B41CDBEF0400D3EF28 /* WW2 SkyBornTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WW2 SkyBornTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C9B57B41CDBEF0400D3EF28 /* SkyBorn.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SkyBorn.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C9B57B81CDBEF0400D3EF28 /* WW2_SkyBornTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WW2_SkyBornTests.swift; sourceTree = "<group>"; };
 		4C9B57BA1CDBEF0400D3EF28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4C9B57BF1CDBEF0400D3EF28 /* WW2 SkyBornUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WW2 SkyBornUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C9B57BF1CDBEF0400D3EF28 /* SkyBorn.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SkyBorn.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C9B57C31CDBEF0400D3EF28 /* WW2_SkyBornUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WW2_SkyBornUITests.swift; sourceTree = "<group>"; };
 		4C9B57C51CDBEF0400D3EF28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C914CDFD1CF79C0800CC1830 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,7 +85,7 @@
 		4C9B57931CDBEF0400D3EF28 = {
 			isa = PBXGroup;
 			children = (
-				4C9B579E1CDBEF0400D3EF28 /* WW2 SkyBorn */,
+				4C9B579E1CDBEF0400D3EF28 /* SkyBorn */,
 				4C9B57B71CDBEF0400D3EF28 /* WW2 SkyBornTests */,
 				4C9B57C21CDBEF0400D3EF28 /* WW2 SkyBornUITests */,
 				4C9B579D1CDBEF0400D3EF28 /* Products */,
@@ -93,14 +95,14 @@
 		4C9B579D1CDBEF0400D3EF28 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4C9B579C1CDBEF0400D3EF28 /* WW2 SkyBorn.app */,
-				4C9B57B41CDBEF0400D3EF28 /* WW2 SkyBornTests.xctest */,
-				4C9B57BF1CDBEF0400D3EF28 /* WW2 SkyBornUITests.xctest */,
+				4C9B579C1CDBEF0400D3EF28 /* SkyBorn.app */,
+				4C9B57B41CDBEF0400D3EF28 /* SkyBorn.xctest */,
+				4C9B57BF1CDBEF0400D3EF28 /* SkyBorn.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4C9B579E1CDBEF0400D3EF28 /* WW2 SkyBorn */ = {
+		4C9B579E1CDBEF0400D3EF28 /* SkyBorn */ = {
 			isa = PBXGroup;
 			children = (
 				4C9B579F1CDBEF0400D3EF28 /* AppDelegate.swift */,
@@ -110,9 +112,11 @@
 				4C9B57A51CDBEF0400D3EF28 /* GameViewController.swift */,
 				4C9B57A71CDBEF0400D3EF28 /* Main.storyboard */,
 				4C9B57AA1CDBEF0400D3EF28 /* Assets.xcassets */,
+				C914CDFD1CF79C0800CC1830 /* LaunchScreen.storyboard */,
 				4C9B57AC1CDBEF0400D3EF28 /* LaunchScreen.storyboard */,
 				4C9B57AF1CDBEF0400D3EF28 /* Info.plist */,
 			);
+			name = SkyBorn;
 			path = "WW2 SkyBorn";
 			sourceTree = "<group>";
 		};
@@ -137,9 +141,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4C9B579B1CDBEF0400D3EF28 /* WW2 SkyBorn */ = {
+		4C9B579B1CDBEF0400D3EF28 /* SkyBorn */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4C9B57C81CDBEF0400D3EF28 /* Build configuration list for PBXNativeTarget "WW2 SkyBorn" */;
+			buildConfigurationList = 4C9B57C81CDBEF0400D3EF28 /* Build configuration list for PBXNativeTarget "SkyBorn" */;
 			buildPhases = (
 				4C9B57981CDBEF0400D3EF28 /* Sources */,
 				4C9B57991CDBEF0400D3EF28 /* Frameworks */,
@@ -149,14 +153,14 @@
 			);
 			dependencies = (
 			);
-			name = "WW2 SkyBorn";
+			name = SkyBorn;
 			productName = "WW2 SkyBorn";
-			productReference = 4C9B579C1CDBEF0400D3EF28 /* WW2 SkyBorn.app */;
+			productReference = 4C9B579C1CDBEF0400D3EF28 /* SkyBorn.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4C9B57B31CDBEF0400D3EF28 /* WW2 SkyBornTests */ = {
+		4C9B57B31CDBEF0400D3EF28 /* SkyBornTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4C9B57CB1CDBEF0400D3EF28 /* Build configuration list for PBXNativeTarget "WW2 SkyBornTests" */;
+			buildConfigurationList = 4C9B57CB1CDBEF0400D3EF28 /* Build configuration list for PBXNativeTarget "SkyBornTests" */;
 			buildPhases = (
 				4C9B57B01CDBEF0400D3EF28 /* Sources */,
 				4C9B57B11CDBEF0400D3EF28 /* Frameworks */,
@@ -167,14 +171,14 @@
 			dependencies = (
 				4C9B57B61CDBEF0400D3EF28 /* PBXTargetDependency */,
 			);
-			name = "WW2 SkyBornTests";
+			name = SkyBornTests;
 			productName = "WW2 SkyBornTests";
-			productReference = 4C9B57B41CDBEF0400D3EF28 /* WW2 SkyBornTests.xctest */;
+			productReference = 4C9B57B41CDBEF0400D3EF28 /* SkyBorn.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		4C9B57BE1CDBEF0400D3EF28 /* WW2 SkyBornUITests */ = {
+		4C9B57BE1CDBEF0400D3EF28 /* SkyBornUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4C9B57CE1CDBEF0400D3EF28 /* Build configuration list for PBXNativeTarget "WW2 SkyBornUITests" */;
+			buildConfigurationList = 4C9B57CE1CDBEF0400D3EF28 /* Build configuration list for PBXNativeTarget "SkyBornUITests" */;
 			buildPhases = (
 				4C9B57BB1CDBEF0400D3EF28 /* Sources */,
 				4C9B57BC1CDBEF0400D3EF28 /* Frameworks */,
@@ -185,9 +189,9 @@
 			dependencies = (
 				4C9B57C11CDBEF0400D3EF28 /* PBXTargetDependency */,
 			);
-			name = "WW2 SkyBornUITests";
+			name = SkyBornUITests;
 			productName = "WW2 SkyBornUITests";
-			productReference = 4C9B57BF1CDBEF0400D3EF28 /* WW2 SkyBornUITests.xctest */;
+			productReference = 4C9B57BF1CDBEF0400D3EF28 /* SkyBorn.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -214,7 +218,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4C9B57971CDBEF0400D3EF28 /* Build configuration list for PBXProject "WW2 SkyBorn" */;
+			buildConfigurationList = 4C9B57971CDBEF0400D3EF28 /* Build configuration list for PBXProject "SkyBorn" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -227,9 +231,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4C9B579B1CDBEF0400D3EF28 /* WW2 SkyBorn */,
-				4C9B57B31CDBEF0400D3EF28 /* WW2 SkyBornTests */,
-				4C9B57BE1CDBEF0400D3EF28 /* WW2 SkyBornUITests */,
+				4C9B579B1CDBEF0400D3EF28 /* SkyBorn */,
+				4C9B57B31CDBEF0400D3EF28 /* SkyBornTests */,
+				4C9B57BE1CDBEF0400D3EF28 /* SkyBornUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -242,6 +246,7 @@
 				4C9B57A21CDBEF0400D3EF28 /* GameScene.sks in Resources */,
 				4C9B57AE1CDBEF0400D3EF28 /* LaunchScreen.storyboard in Resources */,
 				4C9B57AB1CDBEF0400D3EF28 /* Assets.xcassets in Resources */,
+				C914CDFE1CF79C0800CC1830 /* LaunchScreen.storyboard in Resources */,
 				4C9B57A91CDBEF0400D3EF28 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -295,12 +300,12 @@
 /* Begin PBXTargetDependency section */
 		4C9B57B61CDBEF0400D3EF28 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4C9B579B1CDBEF0400D3EF28 /* WW2 SkyBorn */;
+			target = 4C9B579B1CDBEF0400D3EF28 /* SkyBorn */;
 			targetProxy = 4C9B57B51CDBEF0400D3EF28 /* PBXContainerItemProxy */;
 		};
 		4C9B57C11CDBEF0400D3EF28 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4C9B579B1CDBEF0400D3EF28 /* WW2 SkyBorn */;
+			target = 4C9B579B1CDBEF0400D3EF28 /* SkyBorn */;
 			targetProxy = 4C9B57C01CDBEF0400D3EF28 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -420,7 +425,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.newBornSoftwareDevelopment.WW2-SkyBorn";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SkyBorn;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -435,7 +440,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.newBornSoftwareDevelopment.WW2-SkyBorn";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SkyBorn;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -448,8 +453,8 @@
 				INFOPLIST_FILE = "WW2 SkyBornTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.newBornSoftwareDevelopment.WW2-SkyBornTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WW2 SkyBorn.app/WW2 SkyBorn";
+				PRODUCT_NAME = SkyBorn;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SkyBorn.app/SkyBorn";
 			};
 			name = Debug;
 		};
@@ -460,8 +465,8 @@
 				INFOPLIST_FILE = "WW2 SkyBornTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.newBornSoftwareDevelopment.WW2-SkyBornTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WW2 SkyBorn.app/WW2 SkyBorn";
+				PRODUCT_NAME = SkyBorn;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SkyBorn.app/SkyBorn";
 			};
 			name = Release;
 		};
@@ -472,7 +477,7 @@
 				INFOPLIST_FILE = "WW2 SkyBornUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.newBornSoftwareDevelopment.WW2-SkyBornUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SkyBorn;
 				TEST_TARGET_NAME = "WW2 SkyBorn";
 			};
 			name = Debug;
@@ -483,7 +488,7 @@
 				INFOPLIST_FILE = "WW2 SkyBornUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.newBornSoftwareDevelopment.WW2-SkyBornUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SkyBorn;
 				TEST_TARGET_NAME = "WW2 SkyBorn";
 			};
 			name = Release;
@@ -491,7 +496,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4C9B57971CDBEF0400D3EF28 /* Build configuration list for PBXProject "WW2 SkyBorn" */ = {
+		4C9B57971CDBEF0400D3EF28 /* Build configuration list for PBXProject "SkyBorn" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4C9B57C61CDBEF0400D3EF28 /* Debug */,
@@ -500,7 +505,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4C9B57C81CDBEF0400D3EF28 /* Build configuration list for PBXNativeTarget "WW2 SkyBorn" */ = {
+		4C9B57C81CDBEF0400D3EF28 /* Build configuration list for PBXNativeTarget "SkyBorn" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4C9B57C91CDBEF0400D3EF28 /* Debug */,
@@ -509,7 +514,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4C9B57CB1CDBEF0400D3EF28 /* Build configuration list for PBXNativeTarget "WW2 SkyBornTests" */ = {
+		4C9B57CB1CDBEF0400D3EF28 /* Build configuration list for PBXNativeTarget "SkyBornTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4C9B57CC1CDBEF0400D3EF28 /* Debug */,
@@ -518,7 +523,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4C9B57CE1CDBEF0400D3EF28 /* Build configuration list for PBXNativeTarget "WW2 SkyBornUITests" */ = {
+		4C9B57CE1CDBEF0400D3EF28 /* Build configuration list for PBXNativeTarget "SkyBornUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4C9B57CF1CDBEF0400D3EF28 /* Debug */,

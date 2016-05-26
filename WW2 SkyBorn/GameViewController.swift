@@ -1,8 +1,8 @@
 //
 //  GameViewController.swift
-//  WW2 SkyBorn
+//  SkyBorn
 //
-//  Created by Michael Timpson on 5/5/16.
+//  Created by Michael Timpson, Matthew Creel & Ben Brott on 5/5/16.
 //  Copyright (c) 2016 newBorn Software Development Company. All rights reserved.
 //
 

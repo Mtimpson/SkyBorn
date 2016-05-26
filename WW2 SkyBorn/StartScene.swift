@@ -1,14 +1,15 @@
 //
 //  StartScene.swift
-//  WW2 SkyBorn
+//  SkyBorn
 //
-//  Created by Michael Timpson on 5/9/16.
+//  Created by Michael Timpson, Matthew Creel & Ben Brott on 5/9/16.
 //  Copyright © 2016 newBorn Software Development Company. All rights reserved.
 //
 
 import Foundation
 import SpriteKit
 import UIKit
+
 
 
 class StartScene: SKScene  {

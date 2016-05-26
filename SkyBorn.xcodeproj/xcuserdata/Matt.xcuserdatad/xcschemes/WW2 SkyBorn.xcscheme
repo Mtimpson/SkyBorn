@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4C9B579B1CDBEF0400D3EF28"
-               BuildableName = "WW2 SkyBorn.app"
-               BlueprintName = "WW2 SkyBorn"
-               ReferencedContainer = "container:WW2 SkyBorn.xcodeproj">
+               BuildableName = "SkyBorn.app"
+               BlueprintName = "SkyBorn"
+               ReferencedContainer = "container:SkyBorn.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4C9B57B31CDBEF0400D3EF28"
-               BuildableName = "WW2 SkyBornTests.xctest"
-               BlueprintName = "WW2 SkyBornTests"
-               ReferencedContainer = "container:WW2 SkyBorn.xcodeproj">
+               BuildableName = "SkyBorn.xctest"
+               BlueprintName = "SkyBornTests"
+               ReferencedContainer = "container:SkyBorn.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4C9B57BE1CDBEF0400D3EF28"
-               BuildableName = "WW2 SkyBornUITests.xctest"
-               BlueprintName = "WW2 SkyBornUITests"
-               ReferencedContainer = "container:WW2 SkyBorn.xcodeproj">
+               BuildableName = "SkyBorn.xctest"
+               BlueprintName = "SkyBornUITests"
+               ReferencedContainer = "container:SkyBorn.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -53,9 +53,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4C9B579B1CDBEF0400D3EF28"
-            BuildableName = "WW2 SkyBorn.app"
-            BlueprintName = "WW2 SkyBorn"
-            ReferencedContainer = "container:WW2 SkyBorn.xcodeproj">
+            BuildableName = "SkyBorn.app"
+            BlueprintName = "SkyBorn"
+            ReferencedContainer = "container:SkyBorn.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4C9B579B1CDBEF0400D3EF28"
-            BuildableName = "WW2 SkyBorn.app"
-            BlueprintName = "WW2 SkyBorn"
-            ReferencedContainer = "container:WW2 SkyBorn.xcodeproj">
+            BuildableName = "SkyBorn.app"
+            BlueprintName = "SkyBorn"
+            ReferencedContainer = "container:SkyBorn.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -95,9 +95,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4C9B579B1CDBEF0400D3EF28"
-            BuildableName = "WW2 SkyBorn.app"
-            BlueprintName = "WW2 SkyBorn"
-            ReferencedContainer = "container:WW2 SkyBorn.xcodeproj">
+            BuildableName = "SkyBorn.app"
+            BlueprintName = "SkyBorn"
+            ReferencedContainer = "container:SkyBorn.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

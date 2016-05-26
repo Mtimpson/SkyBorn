@@ -1,9 +1,9 @@
 //
 //  AppDelegate.swift
-//  WW2 SkyBorn
+//  SkyBorn
 //  Version 1.0
 //
-//  Created by Michael Timpson & Matthew Creel on 5/5/16.
+//  Created by Michael Timpson, Matthew Creel & Ben Brott on 5/5/16.
 //  Copyright © 2016 newBorn Software Development Company. All rights reserved.
 //
 

@@ -1,13 +1,14 @@
 //
 //  GameScene.swift
-//  WW2 SkyBorn
+//  SkyBorn
 //  Version 1.0
 //
-//  Created by Michael Timpson and Matthew Creel on 5/5/16.
+//  Created by Michael Timpson, Matthew Creel & Ben Brott on 5/5/16.
 //  Copyright (c) 2016 newBorn Software Development Company. All rights reserved.
 //
 
 import SpriteKit
+
 
 var chopper : SKSpriteNode!
 var explosion : SKSpriteNode!
@@ -211,7 +212,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Spawn in your f_40 plane at the left middle of the screen!
         //f_40 = SKSpriteNode(imageNamed:"chopper1")
-        f_40.size = CGSize(width: 90, height: 20)
+        f_40.size = CGSize(width: 90, height: 25)
         f_40.position = CGPoint(x: self.frame.width / 2.75, y: self.frame.height / 2)
         f_40.zPosition = 1
         f_40.physicsBody = SKPhysicsBody(rectangleOfSize: f_40.size)
