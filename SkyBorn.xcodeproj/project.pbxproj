@@ -14,7 +14,6 @@
 		4C9B57A61CDBEF0400D3EF28 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9B57A51CDBEF0400D3EF28 /* GameViewController.swift */; };
 		4C9B57A91CDBEF0400D3EF28 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C9B57A71CDBEF0400D3EF28 /* Main.storyboard */; };
 		4C9B57AB1CDBEF0400D3EF28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C9B57AA1CDBEF0400D3EF28 /* Assets.xcassets */; };
-		4C9B57AE1CDBEF0400D3EF28 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C9B57AC1CDBEF0400D3EF28 /* LaunchScreen.storyboard */; };
 		4C9B57B91CDBEF0400D3EF28 /* WW2_SkyBornTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9B57B81CDBEF0400D3EF28 /* WW2_SkyBornTests.swift */; };
 		4C9B57C41CDBEF0400D3EF28 /* WW2_SkyBornUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9B57C31CDBEF0400D3EF28 /* WW2_SkyBornUITests.swift */; };
 		C914CDFE1CF79C0800CC1830 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C914CDFD1CF79C0800CC1830 /* LaunchScreen.storyboard */; };
@@ -46,7 +45,6 @@
 		4C9B57A51CDBEF0400D3EF28 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		4C9B57A81CDBEF0400D3EF28 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4C9B57AA1CDBEF0400D3EF28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		4C9B57AD1CDBEF0400D3EF28 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4C9B57AF1CDBEF0400D3EF28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C9B57B41CDBEF0400D3EF28 /* SkyBorn.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SkyBorn.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C9B57B81CDBEF0400D3EF28 /* WW2_SkyBornTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WW2_SkyBornTests.swift; sourceTree = "<group>"; };
@@ -113,7 +111,6 @@
 				4C9B57A71CDBEF0400D3EF28 /* Main.storyboard */,
 				4C9B57AA1CDBEF0400D3EF28 /* Assets.xcassets */,
 				C914CDFD1CF79C0800CC1830 /* LaunchScreen.storyboard */,
-				4C9B57AC1CDBEF0400D3EF28 /* LaunchScreen.storyboard */,
 				4C9B57AF1CDBEF0400D3EF28 /* Info.plist */,
 			);
 			name = SkyBorn;
@@ -244,7 +241,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C9B57A21CDBEF0400D3EF28 /* GameScene.sks in Resources */,
-				4C9B57AE1CDBEF0400D3EF28 /* LaunchScreen.storyboard in Resources */,
 				4C9B57AB1CDBEF0400D3EF28 /* Assets.xcassets in Resources */,
 				C914CDFE1CF79C0800CC1830 /* LaunchScreen.storyboard in Resources */,
 				4C9B57A91CDBEF0400D3EF28 /* Main.storyboard in Resources */,
@@ -317,14 +313,6 @@
 				4C9B57A81CDBEF0400D3EF28 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		4C9B57AC1CDBEF0400D3EF28 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4C9B57AD1CDBEF0400D3EF28 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
