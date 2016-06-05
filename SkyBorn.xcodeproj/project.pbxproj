@@ -16,6 +16,7 @@
 		4C9B57AB1CDBEF0400D3EF28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C9B57AA1CDBEF0400D3EF28 /* Assets.xcassets */; };
 		4C9B57B91CDBEF0400D3EF28 /* WW2_SkyBornTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9B57B81CDBEF0400D3EF28 /* WW2_SkyBornTests.swift */; };
 		4C9B57C41CDBEF0400D3EF28 /* WW2_SkyBornUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9B57C31CDBEF0400D3EF28 /* WW2_SkyBornUITests.swift */; };
+		C90574371CFC8D9E002EF744 /* HowToScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90574361CFC8D9E002EF744 /* HowToScene.swift */; };
 		C914CDFE1CF79C0800CC1830 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C914CDFD1CF79C0800CC1830 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,7 @@
 		4C9B57BF1CDBEF0400D3EF28 /* SkyBorn.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SkyBorn.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C9B57C31CDBEF0400D3EF28 /* WW2_SkyBornUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WW2_SkyBornUITests.swift; sourceTree = "<group>"; };
 		4C9B57C51CDBEF0400D3EF28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C90574361CFC8D9E002EF744 /* HowToScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HowToScene.swift; sourceTree = "<group>"; };
 		C914CDFD1CF79C0800CC1830 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,6 +108,7 @@
 				4C9B579F1CDBEF0400D3EF28 /* AppDelegate.swift */,
 				4C9B57A11CDBEF0400D3EF28 /* GameScene.sks */,
 				4C8FA8C61CE16D0600C9D08D /* StartScene.swift */,
+				C90574361CFC8D9E002EF744 /* HowToScene.swift */,
 				4C9B57A31CDBEF0400D3EF28 /* GameScene.swift */,
 				4C9B57A51CDBEF0400D3EF28 /* GameViewController.swift */,
 				4C9B57A71CDBEF0400D3EF28 /* Main.storyboard */,
@@ -270,6 +273,7 @@
 			files = (
 				4C9B57A41CDBEF0400D3EF28 /* GameScene.swift in Sources */,
 				4C9B57A61CDBEF0400D3EF28 /* GameViewController.swift in Sources */,
+				C90574371CFC8D9E002EF744 /* HowToScene.swift in Sources */,
 				4C9B57A01CDBEF0400D3EF28 /* AppDelegate.swift in Sources */,
 				4C8FA8C71CE16D0600C9D08D /* StartScene.swift in Sources */,
 			);

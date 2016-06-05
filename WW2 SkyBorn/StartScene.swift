@@ -13,6 +13,7 @@ import UIKit
 
 
 class StartScene: SKScene  {
+    var howToBtn : UIButton!
     var playBtn : UIButton!
     var scoresBtn : UIButton!
     var statsBtn : UIButton!
@@ -168,6 +169,23 @@ class StartScene: SKScene  {
 
         self.view?.addSubview(statsBtn)
         
+        //adds how to play button
+        howToBtn = UIButton(frame: CGRect(x: 0, y: 0, width: view.frame.size.width / 2, height: view.frame.size.height / 10))
+        howToBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.85)
+        howToBtn.setTitle("How To Play", forState: UIControlState.Normal)
+        howToBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        howToBtn.addTarget(self, action: #selector(StartScene.howToPlay), forControlEvents:
+            UIControlEvents.TouchUpInside)
+        howToBtn.layer.borderWidth = 1
+        howToBtn.layer.borderColor = UIColor.whiteColor().CGColor
+        howToBtn.backgroundColor = UIColor.lightTextColor()
+        howToBtn.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 25)
+        //changes text color when pushed
+        howToBtn.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
+        
+        self.view?.addSubview(howToBtn)
+
+        
         //adds 'SkyBorn' title
         skyborn = UILabel(frame: CGRect(x: 0, y: 0, width: width/2, height: 80))
         skyborn.center = CGPoint(x: view.center.x, y: view.frame.size.height * 0.18)
@@ -188,6 +206,7 @@ class StartScene: SKScene  {
         scoresBtn.removeFromSuperview()
         skyborn.removeFromSuperview()
         statsBtn.removeFromSuperview()
+        howToBtn.removeFromSuperview()
         
         //calls the game to be played
         if let scene = GameScene(fileNamed:"GameScene") {
@@ -214,6 +233,7 @@ class StartScene: SKScene  {
         playBtn.removeFromSuperview()
         scoresBtn.removeFromSuperview()
         statsBtn.removeFromSuperview()
+        howToBtn.removeFromSuperview()
         
         //adds highscore title
         highscoreTitle = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width / 2, height: 80))
@@ -350,6 +370,7 @@ class StartScene: SKScene  {
         playBtn.removeFromSuperview()
         scoresBtn.removeFromSuperview()
         statsBtn.removeFromSuperview()
+        howToBtn.removeFromSuperview()
         
         //adds main menu button
         menu = UIButton(frame:CGRect(x: 0, y: 0, width: view!.frame.size.width / 2, height: view!.frame.size.height / 10))
@@ -435,7 +456,29 @@ class StartScene: SKScene  {
         fromStatsPage = true
     }
     
-    
+    func howToPlay(){
+        skyborn.removeFromSuperview()
+        playBtn.removeFromSuperview()
+        scoresBtn.removeFromSuperview()
+        statsBtn.removeFromSuperview()
+        howToBtn.removeFromSuperview()
+        
+        if let scene = HowToScene(fileNamed:"GameScene") {
+            // Configure the view.
+            let skView = self.view as SKView!
+            skView.showsFPS = false
+            skView.showsNodeCount = false
+            
+            /* Sprite Kit applies additional optimizations to improve rendering performance */
+            skView.ignoresSiblingOrder = true
+            
+            /* Set the scale mode to scale to fit the window */
+            scene.scaleMode = .AspectFill
+            
+            skView.presentScene(scene)
+        }
+
+    }
     
     
 }
