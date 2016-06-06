@@ -172,7 +172,7 @@ class StartScene: SKScene  {
         //adds how to play button
         howToBtn = UIButton(frame: CGRect(x: 0, y: 0, width: view.frame.size.width / 2, height: view.frame.size.height / 10))
         howToBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.85)
-        howToBtn.setTitle("How To Play", forState: UIControlState.Normal)
+        howToBtn.setTitle("Tutorial", forState: UIControlState.Normal)
         howToBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         howToBtn.addTarget(self, action: #selector(StartScene.howToPlay), forControlEvents:
             UIControlEvents.TouchUpInside)

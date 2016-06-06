@@ -153,7 +153,7 @@ class HowToScene : SKScene, SKPhysicsContactDelegate {
         //self.view?.addSubview(fireBtn)
         self.fireBtn.enabled = false
         fireBtn.userInteractionEnabled = false
-        NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(HowToScene.enableFireBtn), userInfo: nil, repeats: true)
+        NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: #selector(HowToScene.enableFireBtn), userInfo: nil, repeats: true)
         
         // Load the TextureAtlas for the chopper blades
         let chopperAnimatedAtlas : SKTextureAtlas = SKTextureAtlas(named: "Chopper")
@@ -334,7 +334,7 @@ class HowToScene : SKScene, SKPhysicsContactDelegate {
         welcome.removeFromSuperview()
         instruct1 = UILabel(frame: CGRect(x: view!.frame.size.height / 4.75, y: view!.frame.size.height / 4.75, width: 200, height: 400))
         instruct1.textColor = UIColor.whiteColor()
-        instruct1.text = "Tap and hold the screen to fly higher. Hitting the ground or top of the screen low will cause your chopper to explode :("
+        instruct1.text = "Tap and hold the screen to fly higher. Hitting the ground or top of the screen will cause your chopper to explode!"
         instruct1.font = UIFont(name: "AvenirNextCondensed-Bold", size: 18)
         instruct1.lineBreakMode = .ByWordWrapping
         instruct1.numberOfLines = 0
@@ -353,7 +353,7 @@ class HowToScene : SKScene, SKPhysicsContactDelegate {
         
         instruct2 = UILabel(frame: CGRect(x: view!.frame.size.height / 4.75, y: view!.frame.size.height / 5, width: 200, height: 400))
         instruct2.textColor = UIColor.whiteColor()
-        instruct2.text = "Tap the fire button to fire a burst of missiles! You cannot fire while the button is red"
+        instruct2.text = "Tap the fire button to fire a burst of missiles. Aim wisely, you cannot fire continuously!"
         instruct2.font = UIFont(name: "AvenirNextCondensed-Bold", size: 18)
         instruct2.lineBreakMode = .ByWordWrapping
         instruct2.numberOfLines = 0
@@ -372,19 +372,20 @@ class HowToScene : SKScene, SKPhysicsContactDelegate {
         
         instruct3 = UILabel(frame: CGRect(x: view!.frame.size.height / 4.75, y: view!.frame.size.height / 5, width: 200, height: 400))
         instruct3.textColor = UIColor.whiteColor()
-        instruct3.text = "Avoid incoming enemy fighters as they spwan on the right. Be careful, they fire back! Tap continue to start"
+        instruct3.text = "Avoid or shoot down enemy fighters as they spwan on the right. Be careful, they fire back!"
         instruct3.font = UIFont(name: "AvenirNextCondensed-Bold", size: 18)
         instruct3.lineBreakMode = .ByWordWrapping
         instruct3.numberOfLines = 0
         self.view?.addSubview(instruct3)
-        
-        //migTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(HowToScene.createEnemyMig), userInfo: nil, repeats: true)
+        continueTap.setTitle("Tap to try it out >", forState: UIControlState.Normal)
 
     }
     
     func tap4(){
         migTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(HowToScene.createEnemyMig), userInfo: nil, repeats: true)
         instruct3.removeFromSuperview()
+        continueTap.setTitle("Tap to continue >", forState: UIControlState.Normal)
+
 
     }
 
@@ -393,7 +394,7 @@ class HowToScene : SKScene, SKPhysicsContactDelegate {
         
         instruct3 = UILabel(frame: CGRect(x: view!.frame.size.height / 4.75, y: view!.frame.size.height / 5, width: 200, height: 400))
         instruct3.textColor = UIColor.whiteColor()
-        instruct3.text = "Score is kept in the top left corner: you receive 1 point for every enemy object that passes you and 10 for each one you hit with a missile"
+        instruct3.text = "Score is kept in the top left corner: You receive 1 point for every object you avoid and 10 for each one you shoot with a missile."
         instruct3.font = UIFont(name: "AvenirNextCondensed-Bold", size: 18)
         instruct3.lineBreakMode = .ByWordWrapping
         instruct3.numberOfLines = 0
@@ -586,7 +587,13 @@ class HowToScene : SKScene, SKPhysicsContactDelegate {
         if((body1.categoryBitMask == PhysicsCatagory.f_40) && (body2.categoryBitMask == PhysicsCatagory.enemyMissile) || (body1.categoryBitMask == PhysicsCatagory.enemyMissile) && (body2.categoryBitMask == PhysicsCatagory.f_40)){
             
             if(body1.node != nil && body2.node != nil) {
-                f40AndMissile(body1.node as! SKSpriteNode, enemyMissile: body2.node as! SKSpriteNode)
+                if (body1.categoryBitMask == PhysicsCatagory.f_40) {
+                    f40AndMissile(body1.node as! SKSpriteNode, enemyMissile: body2.node as! SKSpriteNode)
+                }
+                else {
+                    f40AndMissile(body2.node as! SKSpriteNode, enemyMissile: body1.node as! SKSpriteNode)
+                }
+                
                 
                 let temp2 : SKTexture = explosionWalkingFrames[0]
                 explosion = SKSpriteNode(texture: temp2)
@@ -603,7 +610,12 @@ class HowToScene : SKScene, SKPhysicsContactDelegate {
         if((body1.categoryBitMask == PhysicsCatagory.f_40) && (body2.categoryBitMask == PhysicsCatagory.enemyMig) || (body1.categoryBitMask == PhysicsCatagory.enemyMig) && (body2.categoryBitMask == PhysicsCatagory.f_40)){
             
             if(body1.node != nil && body2.node != nil) {
-                f40AndMig(body1.node as! SKSpriteNode, enemyMig: body2.node as! SKSpriteNode)
+                if (body1.categoryBitMask == PhysicsCatagory.f_40) {
+                    f40AndMig(body1.node as! SKSpriteNode, enemyMig: body2.node as! SKSpriteNode)
+                }
+                else {
+                    f40AndMig(body2.node as! SKSpriteNode, enemyMig: body1.node as! SKSpriteNode)
+                }
                 
                 let temp2 : SKTexture = explosionWalkingFrames[0]
                 explosion = SKSpriteNode(texture: temp2)
