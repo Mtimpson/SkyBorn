@@ -198,7 +198,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Load the animation frames from the TextureAtlas
         var bladeFrames = [SKTexture]();
         let numImages : Int = chopperAnimatedAtlas.textureNames.count
-        for var i = 1; i <= numImages/2; i += 1 {
+        for i in 1...(numImages/2) {
             let chopperTextureName = "chopper\(i)"
             bladeFrames.append(chopperAnimatedAtlas.textureNamed(chopperTextureName))
         }
@@ -221,7 +221,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Load the animation frames from the TextureAtlas
         var explosionFrames = [SKTexture]();
         let numOfImages : Int = explosionAnimatedAtlas.textureNames.count
-        for var i = 1; i <= numOfImages; i += 1 {
+        for i in 1...numOfImages {
             let explosionTextureName = "explosion\(i)"
             explosionFrames.append(explosionAnimatedAtlas.textureNamed(explosionTextureName))
         }
