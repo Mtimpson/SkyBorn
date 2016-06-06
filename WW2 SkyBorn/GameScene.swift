@@ -443,16 +443,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         enemyMig.removeFromParent()
         userMissile.removeFromParent()
         NSLog("Destoryed mig")
-        hitCounter += 10
-        hitLabel.text = "Hits: \(hitCounter)"
+        if !finished {
+            hitCounter += 10
+            hitLabel.text = "Hits: \(hitCounter)"
+        }
     }
     //call when f-40 missile collides with mig missile
     func missileAndMissile(userMissile: SKSpriteNode, enemyMissile: SKSpriteNode){
         userMissile.removeFromParent()
         enemyMissile.removeFromParent()
         NSLog("missile on missile")
-        hitCounter += 10
-        hitLabel.text = "Hits: \(hitCounter)"
+        if !finished {
+            hitCounter += 10
+            hitLabel.text = "Hits: \(hitCounter)"
+        }
+
     }
     //call when enemy missile hits our f-40
     func f40AndMissile(f_40: SKSpriteNode, enemyMissile: SKSpriteNode){
