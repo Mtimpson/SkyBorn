@@ -551,7 +551,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Set size of the Mig
         enemyMig.size = CGSize(width: 77, height: 100)
         //1.5 = 3/4 of Screen, 1.75 = Barely on Screen, 2.0 = Off the screen
-        enemyMig.position = CGPoint(x: self.size.width + enemyMig.size.width/2 , y: CGFloat(arc4random_uniform(UInt32(height * 0.8)) + UInt32(height * 0.1)))
+        enemyMig.position = CGPoint(x: self.size.width + enemyMig.size.width/2 , y: CGFloat(arc4random_uniform(UInt32(height * 0.89)) + UInt32(height * 0.1)))
         enemyMig.zPosition = 1
         //Add the enemy mig to the screen.
         enemyMigs.addChild(enemyMig)

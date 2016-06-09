@@ -206,7 +206,7 @@
 				TargetAttributes = {
 					4C9B579B1CDBEF0400D3EF28 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = VQTYN98SAA;
+						DevelopmentTeam = 4Z7A4R7B97;
 					};
 					4C9B57B31CDBEF0400D3EF28 = {
 						CreatedOnToolsVersion = 7.3;
@@ -410,7 +410,7 @@
 		4C9B57C91CDBEF0400D3EF28 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "WW2 SkyBorn/Info.plist";
@@ -425,7 +425,7 @@
 		4C9B57CA1CDBEF0400D3EF28 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "WW2 SkyBorn/Info.plist";

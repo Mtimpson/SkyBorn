@@ -372,7 +372,7 @@ class HowToScene : SKScene, SKPhysicsContactDelegate {
         
         instruct3 = UILabel(frame: CGRect(x: view!.frame.size.height / 4.75, y: view!.frame.size.height / 5, width: 200, height: 400))
         instruct3.textColor = UIColor.whiteColor()
-        instruct3.text = "Avoid or shoot down enemy fighters as they spwan on the right. Be careful, they fire back!"
+        instruct3.text = "Avoid or shoot down enemy fighters as they spawn on the right. Be careful, they fire back!"
         instruct3.font = UIFont(name: "AvenirNextCondensed-Bold", size: 18)
         instruct3.lineBreakMode = .ByWordWrapping
         instruct3.numberOfLines = 0
