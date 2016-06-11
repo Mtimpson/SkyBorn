@@ -706,7 +706,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.view?.addSubview(gameOver)
         
         //adds Restart button
-        restart = UIButton(frame: CGRect(x: 0, y: 0, width: view!.frame.size.width / 2, height: view!.frame.size.height / 10))
+        restart = UIButton(frame: CGRect(x: 0, y: 0, width: 180, height: 70))
         restart.center = CGPoint(x: view!.frame.size.width / 2, y: view!.frame.size.height * 0.5)
         restart.setTitle("Restart", forState: UIControlState.Normal)
         restart.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
@@ -720,7 +720,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.view?.addSubview(restart)
         
         //adds main menu button
-        menu = UIButton(frame:CGRect(x: 0, y: 0, width: view!.frame.size.width / 2, height: view!.frame.size.height / 10))
+        menu = UIButton(frame: CGRect(x: 0, y: 0, width: 180, height: 70))
         menu.center = CGPoint(x: view!.frame.size.width / 2, y: view!.frame.size.height * 0.65)
         menu.setTitle("Main Menu", forState: UIControlState.Normal)
         menu.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)

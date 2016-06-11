@@ -13,6 +13,8 @@ import UIKit
 
 
 class StartScene: SKScene  {
+    
+    var GCBtn : UIButton!
     var howToBtn : UIButton!
     var playBtn : UIButton!
     var scoresBtn : UIButton!
@@ -121,8 +123,8 @@ class StartScene: SKScene  {
     
         
         //adds play button
-        playBtn = UIButton(frame: CGRect(x: 0, y: 0, width: view.frame.size.width / 2, height: view.frame.size.height / 10))
-        playBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.4)
+        playBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 180, height: 70))
+        playBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.33)
         playBtn.setTitle("Play", forState: UIControlState.Normal)
         playBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         playBtn.addTarget(self, action: #selector(StartScene.play), forControlEvents:
@@ -138,8 +140,8 @@ class StartScene: SKScene  {
         
         
         //adds high scores button
-        scoresBtn = UIButton(frame: CGRect(x: 0, y: 0, width: view.frame.size.width / 2, height: view.frame.size.height / 10))
-        scoresBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.55)
+        scoresBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 180, height: 70))
+        scoresBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.45)
         scoresBtn.setTitle("High Scores", forState: UIControlState.Normal)
         scoresBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         scoresBtn.addTarget(self, action: #selector(StartScene.highscoreLabels), forControlEvents:
@@ -154,8 +156,8 @@ class StartScene: SKScene  {
          self.view?.addSubview(scoresBtn)
         
         //adds stats button
-        statsBtn = UIButton(frame: CGRect(x: 0, y: 0, width: view.frame.size.width / 2, height: view.frame.size.height / 10))
-        statsBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.7)
+        statsBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 180, height: 70))
+        statsBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.57)
         statsBtn.setTitle("Statistics", forState: UIControlState.Normal)
         statsBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         statsBtn.addTarget(self, action: #selector(StartScene.showStats), forControlEvents:
@@ -170,8 +172,8 @@ class StartScene: SKScene  {
         self.view?.addSubview(statsBtn)
         
         //adds how to play button
-        howToBtn = UIButton(frame: CGRect(x: 0, y: 0, width: view.frame.size.width / 2, height: view.frame.size.height / 10))
-        howToBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.85)
+        howToBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 180, height: 70))
+        howToBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.69)
         howToBtn.setTitle("Tutorial", forState: UIControlState.Normal)
         howToBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         howToBtn.addTarget(self, action: #selector(StartScene.howToPlay), forControlEvents:
@@ -184,11 +186,28 @@ class StartScene: SKScene  {
         howToBtn.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
         
         self.view?.addSubview(howToBtn)
+        
+        //adds gamecenter button
+        GCBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 180, height: 70))
+        GCBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.81)
+        GCBtn.setTitle("Game Center", forState: UIControlState.Normal)
+        GCBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        GCBtn.addTarget(self, action: #selector(StartScene.callGC), forControlEvents:
+            UIControlEvents.TouchUpInside)
+        GCBtn.layer.borderWidth = 1
+        GCBtn.layer.borderColor = UIColor.whiteColor().CGColor
+        GCBtn.backgroundColor = UIColor.lightTextColor()
+        GCBtn.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Bold", size: 25)
+        //changes text color when pushed
+        GCBtn.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
+        
+        self.view?.addSubview(GCBtn)
+
 
         
         //adds 'SkyBorn' title
         skyborn = UILabel(frame: CGRect(x: 0, y: 0, width: width/2, height: 80))
-        skyborn.center = CGPoint(x: view.center.x, y: view.frame.size.height * 0.18)
+        skyborn.center = CGPoint(x: view.center.x, y: view.frame.size.height * 0.16)
         skyborn.text = "SkyBorn"
         skyborn.textAlignment = NSTextAlignment.Center
         skyborn.font = UIFont(name: "AvenirNextCondensed-Bold", size: 80)
@@ -196,6 +215,11 @@ class StartScene: SKScene  {
         
         self.view?.addSubview(skyborn)
         
+        
+    }
+    
+    
+    func callGC(){
         
     }
     
@@ -207,6 +231,8 @@ class StartScene: SKScene  {
         skyborn.removeFromSuperview()
         statsBtn.removeFromSuperview()
         howToBtn.removeFromSuperview()
+        GCBtn.removeFromSuperview()
+
         
         //calls the game to be played
         if let scene = GameScene(fileNamed:"GameScene") {
@@ -234,6 +260,8 @@ class StartScene: SKScene  {
         scoresBtn.removeFromSuperview()
         statsBtn.removeFromSuperview()
         howToBtn.removeFromSuperview()
+        GCBtn.removeFromSuperview()
+
         
         //adds highscore title
         highscoreTitle = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width / 2, height: 80))
@@ -263,7 +291,7 @@ class StartScene: SKScene  {
         }
         
         //adds main menu button
-        menu = UIButton(frame:CGRect(x: 0, y: 0, width: view!.frame.size.width / 2, height: view!.frame.size.height / 10))
+        menu = UIButton(frame: CGRect(x: 0, y: 0, width: 180, height: 70))
         menu.center = CGPoint(x: view!.frame.size.width / 2, y: view!.frame.size.height * 0.85)
         menu.setTitle("Main Menu", forState: UIControlState.Normal)
         menu.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
@@ -371,9 +399,11 @@ class StartScene: SKScene  {
         scoresBtn.removeFromSuperview()
         statsBtn.removeFromSuperview()
         howToBtn.removeFromSuperview()
+        GCBtn.removeFromSuperview()
+
         
         //adds main menu button
-        menu = UIButton(frame:CGRect(x: 0, y: 0, width: view!.frame.size.width / 2, height: view!.frame.size.height / 10))
+        menu = UIButton(frame: CGRect(x: 0, y: 0, width: 180, height: 70))
         menu.center = CGPoint(x: view!.frame.size.width / 2, y: view!.frame.size.height * 0.84)
         menu.setTitle("Main Menu", forState: UIControlState.Normal)
         menu.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
@@ -462,6 +492,7 @@ class StartScene: SKScene  {
         scoresBtn.removeFromSuperview()
         statsBtn.removeFromSuperview()
         howToBtn.removeFromSuperview()
+        GCBtn.removeFromSuperview()
         
         if let scene = HowToScene(fileNamed:"GameScene") {
             // Configure the view.
