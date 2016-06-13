@@ -45,7 +45,6 @@ class StartScene: SKScene  {
     var allTimeScoreLabel : UILabel!
     var totalEvasionsLabel : UILabel!
     var hitPercentLabel : UILabel!
-    
   
     
     override func didMoveToView(view: SKView) {
@@ -124,7 +123,7 @@ class StartScene: SKScene  {
         
         //adds play button
         playBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 180, height: 70))
-        playBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.33)
+        playBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.3)
         playBtn.setTitle("Play", forState: UIControlState.Normal)
         playBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         playBtn.addTarget(self, action: #selector(StartScene.play), forControlEvents:
@@ -141,7 +140,7 @@ class StartScene: SKScene  {
         
         //adds high scores button
         scoresBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 180, height: 70))
-        scoresBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.45)
+        scoresBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.44)
         scoresBtn.setTitle("High Scores", forState: UIControlState.Normal)
         scoresBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         scoresBtn.addTarget(self, action: #selector(StartScene.highscoreLabels), forControlEvents:
@@ -157,7 +156,7 @@ class StartScene: SKScene  {
         
         //adds stats button
         statsBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 180, height: 70))
-        statsBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.57)
+        statsBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.58)
         statsBtn.setTitle("Statistics", forState: UIControlState.Normal)
         statsBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         statsBtn.addTarget(self, action: #selector(StartScene.showStats), forControlEvents:
@@ -173,7 +172,7 @@ class StartScene: SKScene  {
         
         //adds how to play button
         howToBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 180, height: 70))
-        howToBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.69)
+        howToBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.72)
         howToBtn.setTitle("Tutorial", forState: UIControlState.Normal)
         howToBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         howToBtn.addTarget(self, action: #selector(StartScene.howToPlay), forControlEvents:
@@ -189,7 +188,7 @@ class StartScene: SKScene  {
         
         //adds gamecenter button
         GCBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 180, height: 70))
-        GCBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.81)
+        GCBtn.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height * 0.86)
         GCBtn.setTitle("Game Center", forState: UIControlState.Normal)
         GCBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         GCBtn.addTarget(self, action: #selector(StartScene.callGC), forControlEvents:
@@ -207,7 +206,7 @@ class StartScene: SKScene  {
         
         //adds 'SkyBorn' title
         skyborn = UILabel(frame: CGRect(x: 0, y: 0, width: width/2, height: 80))
-        skyborn.center = CGPoint(x: view.center.x, y: view.frame.size.height * 0.16)
+        skyborn.center = CGPoint(x: view.center.x, y: view.frame.size.height * 0.12)
         skyborn.text = "SkyBorn"
         skyborn.textAlignment = NSTextAlignment.Center
         skyborn.font = UIFont(name: "AvenirNextCondensed-Bold", size: 80)

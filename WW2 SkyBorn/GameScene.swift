@@ -81,6 +81,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var hitPercent : Double!
     var localShots = Int()
     
+    
+    var missiles : [SKSpriteNode] = []
+    
    
     //endscene variables
     //button variables
@@ -497,6 +500,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func firedMissile(){
+        missiles.removeAll()
         self.fireBtn.enabled = false
         fireBtn.userInteractionEnabled = false
         let fire = NSTimer.scheduledTimerWithTimeInterval(0.15, target: self, selector: #selector(GameScene.spawnUserMissile), userInfo: nil, repeats: true)
@@ -535,6 +539,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         if !finished {
             self.addChild(missile)
+            missiles.append(missile)
         }
         
     }
@@ -874,5 +879,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
         }
         
+        var index = 0
+        while index < missiles.count{
+            if missiles[index].position.x > self.frame.size.width * 0.79 {
+                missiles[index].physicsBody?.dynamic = false
+            }
+            
+            index = index + 1
+        }
     }
 }
